@@ -1720,11 +1720,6 @@ main:has(.wpost){background:#F5F7FB;}
   .wpost-content{padding:0;}
 }
 
-/* =====================================================================
-   WAWASAN — HALAMAN DAFTAR (hero + search + kartu + sidebar)
-   Semua selector di-scope ke .wawasan-page supaya halaman detail aman.
-   ===================================================================== */
-
 main:has(.wawasan-page){ background:#f8fafc; }
 
 .wawasan-page{
@@ -1929,9 +1924,29 @@ main:has(.wawasan-page){ background:#f8fafc; }
 @media (max-width:820px){
   .wawasan-page .wawasan-main .wawasan-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
+
 @media (max-width:640px){
   .wawasan-page .wawasan-main .wawasan-grid{ grid-template-columns:1fr; }
   .wawasan-page .wawasan-search{ flex-direction:column; gap:12px; }
   .wawasan-page .wawasan-search button{ width:100%; }
   .wawasan-page .wawasan-card-body{ padding:16px 16px 18px; }
+}
+.brandmark { display: inline-flex; align-items: center; }
+
+.brand-logo {
+  display: block;
+  height: 44px;      
+  width: auto;       
+  object-fit: contain;
+}
+
+.brand-logo--footer {
+  height: 48px;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .brand-logo { height: 36px; }
 }
