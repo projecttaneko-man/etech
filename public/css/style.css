@@ -1469,7 +1469,7 @@ footer li a:hover{color:var(--accent-soft);}
 @media (max-width:640px){
   .hh{ min-height:0; }
   .hh-content{ padding-top:52px; padding-bottom:110px; }
-      .hh-btn{ width:100%; justify-content:center; padding:16px 24px; }
+  .hh-btn{ width:100%; justify-content:center; padding:16px 24px; }
   .hh-banner{ width:100%; height:130px; margin-top:-56px; }
   .hh-banner-photo{ flex-basis:40%; }
   .hh-sektor{ grid-template-columns:1fr; padding:16px 20px 28px; }
@@ -1606,23 +1606,11 @@ footer li a:hover{color:var(--accent-soft);}
   .cta-blob-a, .cta-blob-b{ animation:none; }
 }
 
-.wawasan{padding:48px 0;}
-.wawasan h1{color:var(--navy,#0B2545);margin:0 0 20px;}
-.wawasan-search{display:flex;gap:8px;margin-bottom:28px;}
-.wawasan-search input{flex:1;padding:10px 14px;border:1px solid var(--border,#E2E8F0);border-radius:10px;}
-.wawasan-search button{padding:10px 18px;border:0;border-radius:10px;background:var(--navy,#0B2545);color:#fff;cursor:pointer;}
-.wawasan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;}
-.wawasan-card{display:block;background:#fff;border:1px solid var(--border,#E2E8F0);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;transition:box-shadow .2s;}
-.wawasan-card:hover{box-shadow:0 6px 20px rgba(11,37,69,.08);}
-.wawasan-card img{width:100%;height:170px;object-fit:cover;display:block;}
-.wawasan-card-body{padding:16px;}
-.wawasan-card h3{font-size:16px;line-height:1.4;margin:6px 0 0;color:var(--navy,#0B2545);}
-.wawasan-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--teal-dark,#0C8585);}
-.wawasan-empty{color:var(--muted,#64748B);}
-.wawasan-pager{display:flex;gap:6px;margin-top:28px;}
-.wawasan-pager a{padding:6px 12px;border:1px solid var(--border,#E2E8F0);border-radius:8px;text-decoration:none;color:inherit;}
-.wawasan-pager a.active{background:var(--navy,#0B2545);color:#fff;}
+/* =====================================================================
+   WAWASAN (BLOG / ARTIKEL)
+   ===================================================================== */
 
+/* ---------- Halaman detail (versi lama, masih dipakai preview) ---------- */
 .wawasan-detail{padding:48px 0;max-width:820px;}
 .wawasan-crumbs{font-size:13px;color:var(--muted,#64748B);margin-bottom:12px;}
 .wawasan-crumbs a{color:inherit;text-decoration:none;}
@@ -1685,9 +1673,7 @@ footer li a:hover{color:var(--accent-soft);}
   .wpost-title{font-size:30px;}
 }
 
-/* ===== Halaman daftar Wawasan (dengan sidebar) ===== */
-.wawasan-main h1{margin:0 0 20px;font-size:32px;color:var(--w-title,#213A80);}
-.wawasan-main .wawasan-grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));}
+/* ===== Sidebar: kategori aktif & artikel terbaru ===== */
 .wside-cats a.active{background:#F4F7FD;color:var(--w-title);font-weight:700;}
 
 .wside-latest{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;}
@@ -1704,12 +1690,18 @@ footer li a:hover{color:var(--accent-soft);}
 /* Latar halaman sedikit abu-abu supaya kartu putih terlihat */
 main:has(.wpost){background:#F5F7FB;}
 
-/* Isi berita di kartu putih */
-.wpost-content{
+/* Satu kotak putih: judul, meta, foto, dan isi berita (halaman detail) */
+.wpost-main{
   background:#fff;
   border-radius:14px;
   padding:32px 36px;
   box-shadow:0 2px 14px rgba(33,58,128,.07);
+}
+.wpost-content{
+  background:none;
+  box-shadow:none;
+  border-radius:0;
+  padding:0;
   font-family:'Plus Jakarta Sans',sans-serif;
   font-size:15.5px;
   line-height:1.9;
@@ -1720,36 +1712,226 @@ main:has(.wpost){background:#F5F7FB;}
 .wpost-content h3{font-size:20px;}
 .wpost-content p{margin:0 0 1em;}
 .wpost-content > :first-child{margin-top:0;}
+.wpost-hero{margin:0 0 26px;}
 
 @media (max-width:600px){
   .wpost{padding:16px 16px 40px;}
-  .wpost-content{padding:22px 20px;}
-}
-/* Satu kotak putih: judul, meta, foto, dan isi berita */
-.wpost-main{
-  background:#fff;
-  border-radius:14px;
-  padding:32px 36px;
-  box-shadow:0 2px 14px rgba(33,58,128,.07);
-}
-.wpost-content{background:none;box-shadow:none;border-radius:0;padding:0;}
-.wpost-hero{margin:0 0 26px;}
-
-@media (max-width:600px){
   .wpost-main{padding:22px 18px;}
   .wpost-content{padding:0;}
 }
-/* Satu kotak putih: judul, meta, foto, dan isi berita */
-.wpost-main{
-  background:#fff;
-  border-radius:14px;
-  padding:32px 36px;
-  box-shadow:0 2px 14px rgba(33,58,128,.07);
-}
-.wpost-content{background:none;box-shadow:none;border-radius:0;padding:0;}
-.wpost-hero{margin:0 0 26px;}
 
-@media (max-width:600px){
-  .wpost-main{padding:22px 18px;}
-  .wpost-content{padding:0;}
+/* =====================================================================
+   WAWASAN — HALAMAN DAFTAR (hero + search + kartu + sidebar)
+   Semua selector di-scope ke .wawasan-page supaya halaman detail aman.
+   ===================================================================== */
+
+main:has(.wawasan-page){ background:#f8fafc; }
+
+.wawasan-page{
+  --w-navy:#263c7c;
+  --w-title:#1f2a5c;
+  --w-orange:#d97706;
+  --w-text:#6b7a90;
+  --w-border:#e5eaf1;
+  background:#f8fafc;
+  padding-bottom:64px;
+}
+
+/* ---------- HERO ---------- */
+.wawasan-page .wawasan-hero{
+  width:auto; margin:0; border-radius:0;   /* reset aturan lama .wawasan-hero (gambar detail) */
+  text-align:center;
+  padding:28px 0 28px;
+}
+.wawasan-page .wawasan-hero-eyebrow{
+  display:block; margin-bottom:6px;
+  font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--w-orange);
+}
+.wawasan-page .wawasan-hero-title{
+  margin:0;
+  font-size:clamp(26px,4vw,38px); font-weight:800; line-height:1.15; letter-spacing:-.02em;
+  color:var(--w-navy);
+}
+.wawasan-page .wawasan-hero-desc{
+  max-width:520px; margin:8px auto 0;
+  font-size:14px; line-height:1.6; color:#4f6d8f;
+}
+
+/* ---------- SEARCH ---------- */
+.wawasan-page .wawasan-search{
+  display:flex; gap:12px; max-width:720px; margin:24px auto 0; padding:0;
+}
+.wawasan-page .wawasan-search input[type="text"]{
+  flex:1; min-width:0; height:46px; padding:0 16px;
+  font:inherit; font-size:14px; color:#1e293b;
+  background:#fff; border:1px solid var(--w-border); border-radius:12px; outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+.wawasan-page .wawasan-search input[type="text"]::placeholder{ color:#7b8794; }
+.wawasan-page .wawasan-search input[type="text"]:focus{
+  border-color:var(--w-navy); box-shadow:0 0 0 3px rgba(38,60,124,.12);
+}
+.wawasan-page .wawasan-search button{
+  height:46px; padding:0 26px;
+  font:inherit; font-size:14px; font-weight:700; color:#fff;
+  background:var(--w-navy); border:0; border-radius:12px; cursor:pointer;
+  transition:background .2s;
+}
+.wawasan-page .wawasan-search button:hover{ background:#1b2d63; }
+
+/* ---------- LAYOUT: kartu + sidebar sejajar di atas ---------- */
+.wawasan-page .wpost{
+  max-width:1200px; margin:0 auto; padding:0 32px;
+}
+.wawasan-page .wpost-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 280px;
+  gap:24px;
+  align-items:start;
+}
+.wawasan-page .wawasan-main,
+.wawasan-page .wpost-side{
+  margin:0; padding:0;
+  align-self:start;
+}
+.wawasan-page .wpost-side{
+  position:static;
+  display:flex; flex-direction:column; gap:24px;
+}
+
+/* ---------- BOX: kartu artikel & box sidebar memakai gaya yang sama ---------- */
+.wawasan-page .wawasan-card,
+.wawasan-page .wside-box{
+  background:#fff;
+  border:1px solid #eef1f6;
+  border-radius:16px;
+  box-shadow:0 2px 16px rgba(15,23,42,.06);
+}
+
+/* ---------- GRID ARTIKEL ---------- */
+.wawasan-page .wawasan-main .wawasan-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px 20px;
+  margin:0;
+}
+
+/* ---------- KARTU ARTIKEL ---------- */
+.wawasan-page .wawasan-card{
+  display:flex; flex-direction:column;
+  overflow:hidden; text-decoration:none; color:inherit;
+  transition:transform .2s, box-shadow .2s;
+}
+.wawasan-page .wawasan-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 30px rgba(15,23,42,.10);
+}
+.wawasan-page .wawasan-card img{
+  display:block; width:100%; height:auto;
+  aspect-ratio:3/2; object-fit:cover;
+}
+.wawasan-page .wawasan-card-body{
+  display:flex; flex-direction:column; flex:1;
+  padding:18px 16px 18px;
+}
+.wawasan-page .wawasan-cat{
+  display:inline-block; align-self:flex-start; margin-bottom:8px;
+  font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--w-orange);
+}
+.wawasan-page .wawasan-card h3{
+  margin:0 0 10px;
+  font-size:15px; font-weight:700; line-height:1.4; letter-spacing:-.01em;
+  color:var(--w-title);
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.wawasan-page .wawasan-card p{
+  margin:0 0 16px;
+  font-size:13px; font-weight:500; line-height:1.65;
+  color:var(--w-text);
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+}
+.wawasan-page .wawasan-more{
+  margin-top:auto;
+  padding-top:14px;
+  border-top:1px solid #e8edf3;
+  display:flex; align-items:center; gap:6px;
+  font-size:13px; font-weight:700; color:var(--w-title);
+}
+.wawasan-page .wawasan-more svg{ flex:none; width:14px; height:14px; transition:transform .2s; }
+.wawasan-page .wawasan-card:hover .wawasan-more svg{ transform:translateX(4px); }
+
+.wawasan-page .wawasan-empty{ padding:48px 0; text-align:center; color:var(--w-text); }
+
+/* ---------- PAGINATION ---------- */
+.wawasan-page .wawasan-pager{
+  display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-top:40px;
+}
+.wawasan-page .wawasan-pager a{
+  min-width:40px; height:40px; padding:0 12px;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-weight:600; color:var(--w-navy);
+  background:#fff; border:1px solid var(--w-border); border-radius:10px; text-decoration:none;
+}
+.wawasan-page .wawasan-pager a.active,
+.wawasan-page .wawasan-pager a:hover{
+  color:#fff; background:var(--w-navy); border-color:var(--w-navy);
+}
+
+/* ---------- SIDEBAR ---------- */
+.wawasan-page .wside-box{ padding:20px; }
+.wawasan-page .wside-box h3{
+  margin:0 0 12px; padding:0; border:0;
+  font-size:16px; font-weight:800; color:var(--w-title);
+}
+.wawasan-page .wside-cats{ list-style:none; margin:0; padding:0; }
+.wawasan-page .wside-cats a{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:8px 10px; font-size:13.5px; font-weight:500; color:#334155;
+  text-decoration:none; border-radius:10px;
+  transition:background .2s, color .2s;
+}
+.wawasan-page .wside-cats a:hover,
+.wawasan-page .wside-cats a.active{ background:#eef2fb; color:var(--w-navy); }
+.wawasan-page .wside-count{
+  font-style:normal; font-size:11px; font-weight:700;
+  padding:1px 7px; color:var(--w-navy); background:#e3e9f7; border-radius:999px;
+}
+.wawasan-page .wside-related{ display:flex; flex-direction:column; gap:14px; }
+.wawasan-page .wside-rel-item{
+  display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit;
+}
+.wawasan-page .wside-rel-item img,
+.wawasan-page .wside-rel-ph{
+  width:52px; height:52px; flex:none; object-fit:cover; border-radius:8px; background:#e2e8f0;
+}
+.wawasan-page .wside-rel-item p{
+  margin:0; font-size:13px; font-weight:700; line-height:1.4; color:var(--w-title);
+}
+.wawasan-page .wside-rel-item:hover p{ text-decoration:underline; }
+
+.wawasan-page .wside-pager{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:14px; padding-top:14px; border-top:1px solid var(--w-border);
+  font-size:12px; color:var(--w-text);
+}
+.wawasan-page .wside-pager button{
+  padding:4px 10px; font:inherit; font-size:12px; font-weight:600; color:var(--w-navy);
+  background:#fff; border:1px solid var(--w-border); border-radius:8px; cursor:pointer;
+}
+.wawasan-page .wside-pager button:disabled{ opacity:.4; cursor:not-allowed; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1100px){
+  .wawasan-page .wpost-layout{ grid-template-columns:1fr; }
+}
+@media (max-width:820px){
+  .wawasan-page .wawasan-main .wawasan-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:640px){
+  .wawasan-page .wawasan-main .wawasan-grid{ grid-template-columns:1fr; }
+  .wawasan-page .wawasan-search{ flex-direction:column; gap:12px; }
+  .wawasan-page .wawasan-search button{ width:100%; }
+  .wawasan-page .wawasan-card-body{ padding:16px 16px 18px; }
 }

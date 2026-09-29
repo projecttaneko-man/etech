@@ -1,90 +1,103 @@
 <% const cats = (locals.footer && locals.footer.categories) || []; %>
 <% const latest = (locals.footer && locals.footer.latest_articles) || []; %>
 
-<div class="wpost wrap">
-  <div class="wpost-layout">
+<link rel="stylesheet" href="/css/wawasan.css">
 
-    <!-- ========== KOLOM KIRI: DAFTAR ARTIKEL ========== -->
-    <section class="wawasan-main">
-      <h1>Wawasan</h1>
+<div class="wawasan-page">
 
+  <!-- ========== HERO + SEARCH ========== -->
+  <section class="wawasan-hero">
+    <div class="wrap">
+      <span class="wawasan-hero-eyebrow">Blog &amp; Artikel</span>
+      <h1 class="wawasan-hero-title">Insight and News</h1>
       <form class="wawasan-search" method="get" action="/wawasan">
-        <input type="text" name="search" value="<%= search %>" placeholder="Cari artikel...">
+        <input type="text" name="search" value="<%= search %>" placeholder="Cari: overheat, oli genset, perawatan...">
         <% if (activeCategory) { %><input type="hidden" name="category" value="<%= activeCategory %>"><% } %>
         <button type="submit">Cari</button>
       </form>
+    </div>
+  </section>
 
-      <% if (!articles.length) { %>
-        <p class="wawasan-empty">Belum ada artikel.</p>
-      <% } %>
+  <!-- ========== KONTEN ========== -->
+  <div class="wpost wrap">
+    <div class="wpost-layout">
 
-      <div class="wawasan-grid">
-        <% articles.forEach(function (a) { %>
-          <a class="wawasan-card" href="/wawasan/<%= a.slug %>">
-            <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt="<%= a.title %>"><% } %>
-            <div class="wawasan-card-body">
-              <% if (a.category) { %><span class="wawasan-cat"><%= a.category.name %></span><% } %>
-              <h3><%= a.title %></h3>
-              <% if (a.excerpt) { %><p><%= a.excerpt %></p><% } %>
+      <!-- ========== KOLOM KIRI: DAFTAR ARTIKEL ========== -->
+      <section class="wawasan-main">
+
+        <% if (!articles.length) { %>
+          <p class="wawasan-empty">Belum ada artikel.</p>
+        <% } %>
+
+        <div class="wawasan-grid">
+          <% articles.forEach(function (a) { %>
+            <a class="wawasan-card" href="/wawasan/<%= a.slug %>">
+              <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt="<%= a.title %>"><% } %>
+              <div class="wawasan-card-body">
+                <% if (a.category) { %><span class="wawasan-cat"><%= a.category.name %></span><% } %>
+                <h3><%= a.title %></h3>
+                <% if (a.excerpt) { %><p><%= a.excerpt %></p><% } %>
+              </div>
+            </a>
+          <% }) %>
+        </div>
+
+        <% if (meta.last_page > 1) { %>
+          <nav class="wawasan-pager">
+            <% for (let p = 1; p <= meta.last_page; p++) { %>
+              <a class="<%= p === meta.current_page ? 'active' : '' %>"
+                 href="/wawasan?page=<%= p %><%= activeCategory ? '&category=' + activeCategory : '' %><%= search ? '&search=' + encodeURIComponent(search) : '' %>"><%= p %></a>
+            <% } %>
+          </nav>
+        <% } %>
+
+      </section>
+
+      <!-- ========== SIDEBAR ========== -->
+      <aside class="wpost-side">
+
+        <% if (cats.length) { %>
+          <div class="wside-box" data-pager data-size="5">
+            <h3>Category</h3>
+            <ul class="wside-cats">
+              <% cats.forEach(function (c) { %>
+                <li data-item>
+                  <a class="<%= activeCategory === c.slug ? 'active' : '' %>" href="/wawasan?category=<%= c.slug %>">
+                    <span><%= c.name %></span>
+                    <% if (c.articles_count > 0) { %><em class="wside-count"><%= c.articles_count %></em><% } %>
+                  </a>
+                </li>
+              <% }) %>
+            </ul>
+            <div class="wside-pager">
+              <button type="button" data-prev>Sebelumnya</button>
+              <span data-label>1/1</span>
+              <button type="button" data-next>Berikutnya</button>
             </div>
-          </a>
-        <% }) %>
-      </div>
+          </div>
+        <% } %>
 
-      <% if (meta.last_page > 1) { %>
-        <nav class="wawasan-pager">
-          <% for (let p = 1; p <= meta.last_page; p++) { %>
-            <a class="<%= p === meta.current_page ? 'active' : '' %>"
-               href="/wawasan?page=<%= p %><%= activeCategory ? '&category=' + activeCategory : '' %><%= search ? '&search=' + encodeURIComponent(search) : '' %>"><%= p %></a>
-          <% } %>
-        </nav>
-      <% } %>
-    </section>
-
-    <!-- ========== SIDEBAR ========== -->
-    <aside class="wpost-side">
-
-      <% if (cats.length) { %>
-        <div class="wside-box" data-pager data-size="5">
-          <h3>Category</h3>
-          <ul class="wside-cats">
-            <% cats.forEach(function (c) { %>
-              <li data-item>
-                <a class="<%= activeCategory === c.slug ? 'active' : '' %>" href="/wawasan?category=<%= c.slug %>">
-                  <span><%= c.name %></span>
-                  <% if (c.articles_count > 0) { %><em class="wside-count"><%= c.articles_count %></em><% } %>
+        <% if (latest.length) { %>
+          <div class="wside-box" data-pager data-size="5">
+            <h3>Related Post</h3>
+            <div class="wside-related">
+              <% latest.forEach(function (a) { %>
+                <a class="wside-rel-item" data-item href="/wawasan/<%= a.slug %>">
+                  <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt=""><% } else { %><div class="wside-rel-ph"></div><% } %>
+                  <p><%= a.title %></p>
                 </a>
-              </li>
-            <% }) %>
-          </ul>
-          <div class="wside-pager">
-            <button type="button" data-prev>Sebelumnya</button>
-            <span data-label>1/1</span>
-            <button type="button" data-next>Berikutnya</button>
+              <% }) %>
+            </div>
+            <div class="wside-pager">
+              <button type="button" data-prev>Sebelumnya</button>
+              <span data-label>1/1</span>
+              <button type="button" data-next>Berikutnya</button>
+            </div>
           </div>
-        </div>
-      <% } %>
+        <% } %>
 
-      <% if (latest.length) { %>
-        <div class="wside-box" data-pager data-size="5">
-          <h3>Related Post</h3>
-          <div class="wside-related">
-            <% latest.forEach(function (a) { %>
-              <a class="wside-rel-item" data-item href="/wawasan/<%= a.slug %>">
-                <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt=""><% } else { %><div class="wside-rel-ph"></div><% } %>
-                <p><%= a.title %></p>
-              </a>
-            <% }) %>
-          </div>
-          <div class="wside-pager">
-            <button type="button" data-prev>Sebelumnya</button>
-            <span data-label>1/1</span>
-            <button type="button" data-next>Berikutnya</button>
-          </div>
-        </div>
-      <% } %>
-
-    </aside>
+      </aside>
+    </div>
   </div>
 </div>
 
