@@ -1,0 +1,22 @@
+<%# Cara pakai: include partials/cta-band dengan data { sectionId (opsional), heading, text, ctaLabel, ctaUrl } %>
+<section id="<%= typeof sectionId !== 'undefined' ? sectionId : 'cta' %>" class="cta-final">
+  <div class="cta-dome">
+    <div class="cta-blob cta-blob-a"></div>
+    <div class="cta-blob cta-blob-b"></div>
+    <div class="cta-dots"></div>
+    <div class="wrap">
+      <div class="cta-copy">
+        <h2><%= heading %></h2>
+        <p><%= text %></p>
+      </div>
+      <a href="<%= ctaUrl %>" target="_blank" rel="noopener" class="btn btn-cta"><%= ctaLabel %></a>
+    </div>
+  </div>
+  <svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+    <defs>
+      <clipPath id="ctaWaveClip" clipPathUnits="objectBoundingBox">
+        <path d="M0,1 L0,0.22 C 0.25,0.05 0.75,0 1,0.16 L1,1 Z"></path>
+      </clipPath>
+    </defs>
+  </svg>
+</section>

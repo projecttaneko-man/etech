@@ -1,0 +1,95 @@
+<%- include('partials/breadcrumb', {
+  items: [
+    { label: 'Etech', url: '/' },
+    { label: 'Kontak' }
+  ]
+}) %>
+
+<div class="page-hero contact-hero-full" data-parallax>
+  <div class="page-hero-media">
+    <img src="/images/hero-kontak.jpg" alt="Hubungi Etech">
+  </div>
+  <div class="page-hero-overlay contact-hero-overlay"></div>
+  <div class="wrap">
+    <div class="page-hero-inner">
+      <h1>Hubungi Kami</h1>
+    </div>
+  </div>
+</div>
+
+<section id="form">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <div>
+        <div class="contact-card">
+          <h3>Hubungi Kami</h3>
+          <ul class="channel-list">
+            <li><span>WhatsApp</span><span>0851 9609 5854</span></li>
+            <li><span>Email</span><span>info@etech.co.id</span></li>
+            <li><span>Jam layanan</span><span>Senin–Sabtu, 08.00–17.00</span></li>
+          </ul>
+          <a href="https://wa.me/6285196095854" target="_blank" rel="noopener" class="btn btn-wa">Chat via WhatsApp →</a>
+        </div>
+        <div class="map-block">
+            <iframe
+                src="https://www.google.com/maps?q=Jl.+Pemuda+No.35,+Pandansari,+Kec.+Semarang+Tengah,+Kota+Semarang,+Jawa+Tengah+50139&output=embed"
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Lokasi Etech - Jl. Pemuda No.35, Semarang">
+            </iframe>
+            </div>
+      </div>
+
+      <div>
+        <div class="section-head">
+          <div class="eyebrow"><span class="rule"></span>FORMULIR KONTAK</div>
+          <h2>Kirim pesan langsung</h2>
+          <p>Tim kami akan menghubungi dalam 1x24 jam kerja.</p>
+        </div>
+
+        <form id="contact-form" action="/kontak" method="POST">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="nama">Nama Lengkap</label>
+              <input type="text" id="nama" name="nama" placeholder="Nama Anda" required>
+            </div>
+            <div class="form-field">
+              <label for="telepon">Nomor Telepon</label>
+              <input type="tel" id="telepon" name="telepon" placeholder="08xx-xxxx-xxxx" required>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="nama@email.com" required>
+          </div>
+
+          <div class="form-field">
+            <label for="kebutuhan">Jenis Kebutuhan</label>
+            <select id="kebutuhan" name="kebutuhan" required>
+              <option value="" selected disabled>Pilih jenis kebutuhan</option>
+              <option value="korporat">Pengadaan Korporat / Pemerintah</option>
+              <option value="katalog">Katalog Produk</option>
+              <option value="servis">Purna Jual / Servis</option>
+              <option value="lainnya">Lainnya</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="pesan">Pesan</label>
+            <textarea id="pesan" name="pesan" placeholder="Jelaskan kebutuhan Anda..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-gold btn-lg">Kirim Pesan</button>
+          <p id="form-status" class="form-status"></p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>

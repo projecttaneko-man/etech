@@ -1,0 +1,20 @@
+:root{
+  
+  --primary:#C1440E;        
+  --primary-deep:#3D2B1F;   
+  --accent:#F2994A;         
+  --accent-soft:#F6C89F;   
+  --accent-dark:#8A4B1F;    
+  --bg:#FDF8F3;             
+  --ink:#2B211C;           
+  --muted:#8A7A6E;         
+  --line:#ECE0D3;         
+  --radius:8px;
+
+  --grad-warm:linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%);
+  --grad-deep:linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+
+  --font-heading:'Sora', sans-serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}

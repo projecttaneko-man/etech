@@ -1,0 +1,261 @@
+<%- include('partials/breadcrumb', {
+  items: [
+    { label: 'Etech', url: '/' },
+    { label: 'Solusi Bisnis' }
+  ]
+}) %>
+
+<section class="hero hero-solusi" data-parallax>
+  <div class="hero-media">
+    <img src="/images/solusi-bisnis/hero.jpg" alt="Unit genset industri ETECH">
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="wrap">
+    <div class="hero-inner">
+      <h1>Solusi Genset Terpercaya untuk <span class="accent">Kelancaran Bisnis Anda</span></h1>
+      <p class="hero-sub">Menyediakan genset berkualitas, layanan profesional, dan dukungan teknis terbaik untuk kebutuhan industri, komersial, maupun perkantoran.</p>
+    </div>
+  </div>
+</section>
+
+<section id="layanan" class="proses-section">
+  <div class="wrap">
+    <div class="proses-head">
+      <div class="proses-media-bleed">
+        <div class="proses-media-clip">
+          <img src="/images/solusi-bisnis/hero1.jpg" alt="Unit genset CAT ETECH berjejer di lokasi proyek">
+        </div>
+      </div>
+
+      <div class="proses-col-text">
+        <h2>Pendampingan Lengkap untuk Kebutuhan <span class="accent">Genset</span> Anda</h2>
+        <p>Kami hadir untuk memastikan setiap tahap, mulai dari perencanaan hingga purna jual, berjalan dengan optimal dan sesuai kebutuhan Anda.</p>
+      </div>
+    </div>
+
+    <% const layananList = [
+      {
+        image: '/images/solusi-bisnis/1.webp',
+        title: 'Konsultasi & Perencanaan',
+        desc: 'Kami melakukan survei lokasi, analisis kebutuhan daya, serta memberikan rekomendasi kapasitas genset yang paling tepat untuk mendukung operasional bisnis Anda.',
+        link: { label: 'KONSULTASI SEKARANG', url: 'https://wa.me/6285196095854' }
+      },
+      {
+        image: '/images/solusi-bisnis/2.webp',
+        title: 'Pengadaan & Instalasi',
+        desc: 'Mulai dari pengiriman unit, instalasi oleh teknisi bersertifikat, hingga pengujian dan commissioning untuk memastikan genset siap beroperasi dengan optimal.',
+        link: { label: 'LIHAT DETAIL', url: '/products' }
+      },
+      {
+        image: '/images/solusi-bisnis/3.jpg',
+        title: 'Layanan Purna Jual',
+        desc: 'Kami menyediakan perawatan berkala, penyediaan suku cadang asli, serta dukungan teknis yang responsif 24/7 untuk menjaga performa genset Anda.',
+        link: { label: 'HUBUNGI TIM KAMI', url: 'https://wa.me/6285196095854' }
+      }
+    ]; %>
+
+    <div class="proses-steps">
+      <% layananList.forEach(function(item, i) { %>
+        <div class="proses-card">
+          <div class="proses-card-media">
+            <img src="<%= item.image %>" alt="<%= item.title %>">
+          </div>
+          <div class="proses-card-body">
+            <h3><%= item.title %></h3>
+            <p><%= item.desc %></p>
+            <a href="<%= item.link.url %>" class="proses-card-link" target="_blank" rel="noopener">
+              <%= item.link.label %> <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+
+<section id="produk" class="produk-section">
+  <div class="produk-decor" aria-hidden="true">
+    <span class="d-photo"></span>
+  </div>
+
+  <div class="wrap">
+    <div class="produk-head">
+      <h2>Pilihan produk untuk berbagai <span class="accent">kebutuhan usaha Anda</span></h2>
+      <p>Kami menyediakan berbagai pilihan genset berkualitas tinggi yang dirancang untuk mendukung kelancaran operasional bisnis Anda, dari skala kecil hingga industri besar.</p>
+    </div>
+
+    <% const kategoriList = [
+      { name: 'Generator Sets', url: '/products', desc: 'Kapasitas besar untuk daya utama maupun cadangan skala industri, dengan performa yang andal dan efisien.', image: '/images/solusi-bisnis/Generator.jpg' },
+      { name: 'Alternator', url: '/products', desc: 'Komponen pengganti untuk perawatan & upgrade unit genset terpasang, dengan kualitas terbaik.', image: '/images/solusi-bisnis/alternator.webp' },
+      { name: 'Load Bank', url: '/products', desc: 'Pengujian beban untuk memastikan performa genset sebelum serah terima.', image: '/images/solusi-bisnis/loadbank.webp' },
+      { name: 'Diesel Forklift', url: '/products', desc: 'Alat berat pendukung operasional gudang & area industri.', image: '/images/solusi-bisnis/forklift.webp' }
+    ]; %>
+    <div class="produk-grid">
+      <% kategoriList.forEach(function(category) { %>
+        <a class="produk-card" href="<%= category.url %>">
+          <div class="produk-card-media">
+            <img src="<%= category.image %>" alt="<%= category.name %>" width="600" height="340" loading="lazy">
+          </div>
+          <div class="produk-card-body">
+            <h3><%= category.name %></h3>
+            <p><%= category.desc %></p>
+            <span class="produk-card-link">Lihat Detail <span class="arrow" aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section id="portofolio" class="berjalan-section">
+  <div class="wrap">
+    <div class="berjalan-head">
+      <h2>Proyek yang <span class="accent">sudah berjalan</span></h2>
+      <p>Beberapa proyek genset yang sedang kami tangani untuk berbagai klien.</p>
+    </div>
+
+    <%# Ikon spesifikasi (path SVG, stroke). Ganti/tambah key sesuai kebutuhan. %>
+    <% const proyekIcons = {
+      gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+      bolt: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+      pin:  '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+      chip: '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/>'
+    }; %>
+
+    <% const proyekList = [
+ {
+        name: 'PT. Handy Mandiri Steel',
+        desc: 'Proyek 1 unit genset Bremen 30 kVA.',
+        image: '/images/solusi-bisnis/center.webp',
+        specs: [
+          { icon: 'gear', text: 'Model: BR30FW – Silent Type' },
+          { icon: 'gear', text: 'Engine: BREMEN AF2540' },
+          { icon: 'chip', text: 'Alternator: BREMEN BR 184G' },
+          { icon: 'chip', text: 'Controller: ComAp IntelliNano' }
+        ]
+      },
+      {
+        name: 'PT. Mustika Alam Sejahtera',
+        desc: 'Proyek 1 unit genset Bremen 100 kVA.',
+        image: '/images/solusi-bisnis/komersial.webp',
+        specs: [
+          { icon: 'gear', text: 'Model: BR100FW – Silent Type' },
+          { icon: 'gear', text: 'Engine: BREMEN AS4300' },
+          { icon: 'chip', text: 'Alternator: BREMEN BR 274C' },
+          { icon: 'chip', text: 'Controller: ComAp IntelliNano' }
+        ]
+      },
+      {
+        name: 'Kantor Kecamatan Genuk, Semarang',
+        desc: 'Proyek 1 unit genset Bremen 15 kVA.',
+        image: '/images/solusi-bisnis/manufaktur.webp',
+        specs: [
+          { icon: 'gear', text: 'Model: BR15FW – Silent Type' },
+          { icon: 'gear', text: 'Engine: BREMEN AF2270' },
+          { icon: 'chip', text: 'Alternator: BREMEN BR 164D' },
+          { icon: 'chip', text: 'Controller: ComAp IntelliNano' }
+        ]
+      }
+    ]; %>
+
+    <div class="berjalan-grid">
+      <% proyekList.forEach(function(project) { %>
+        <article class="berjalan-card">
+          <div class="berjalan-card-media">
+            <img src="<%= project.image %>" alt="<%= project.name %>" width="640" height="400" loading="lazy">
+          </div>
+          <div class="berjalan-card-body">
+            <h3><%= project.name %></h3>
+            <p class="berjalan-desc"><%= project.desc %></p>
+            <ul class="berjalan-specs">
+              <% project.specs.forEach(function(spec) { %>
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><%- proyekIcons[spec.icon] %></svg>
+                  <span><%= spec.text %></span>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq-section">
+  <div class="wrap">
+    <% const faqList = [
+      {
+        q: 'Apakah ETECH membantu menentukan kapasitas genset yang dibutuhkan?',
+        a: 'Ya. Tim kami membantu menghitung kebutuhan daya sesuai operasional bisnis Anda. Jika diperlukan, kami juga melakukan survei lokasi untuk memberikan rekomendasi kapasitas dan solusi daya yang paling sesuai.'
+      },
+      {
+        q: 'Bagaimana cara meminta penawaran?',
+        a: 'Kirimkan kebutuhan daya Anda melalui WhatsApp atau tombol Hubungi Kami. Tim kami akan menghubungi Anda dalam 1x24 jam kerja untuk membahas kebutuhan dan menyiapkan penawaran.'
+      },
+      {
+        q: 'Apakah tersedia layanan instalasi dan commissioning?',
+        a: 'Tersedia. Mulai dari pengiriman unit, instalasi oleh teknisi bersertifikat, hingga pengujian dan commissioning agar genset siap beroperasi dengan optimal.'
+      },
+      {
+        q: 'Apakah genset dapat dilengkapi ATS untuk transfer otomatis?',
+        a: 'Genset dapat dikonfigurasi dengan panel ATS/AMF agar daya berpindah otomatis saat listrik utama padam. Ketersediaannya menyesuaikan tipe dan kapasitas unit, sehingga sebaiknya dikonsultasikan lebih dulu dengan tim kami.'
+      },
+      {
+        q: 'Berapa lama proses pengiriman genset?',
+        a: 'Waktu pengiriman bergantung pada ketersediaan unit, kapasitas yang dipilih, dan lokasi proyek. Estimasi jadwal akan kami konfirmasikan bersamaan dengan penawaran.'
+      },
+      {
+        q: 'Apakah tersedia layanan service dan perawatan berkala?',
+        a: 'Ya. Kami menyediakan perawatan berkala, penyediaan suku cadang asli, serta dukungan teknis yang responsif 24/7 untuk menjaga performa genset Anda.'
+      },
+      {
+        q: 'Apakah produk yang dibeli mendapat garansi?',
+        a: 'Ya. Cakupan dan masa garansi mengikuti ketentuan produk dan akan dijelaskan secara rinci pada penawaran, sebelum Anda memutuskan pembelian.'
+      },
+      {
+        q: 'Apakah ETECH distributor resmi dan memiliki legalitas usaha?',
+        a: 'Ya. ETECH merupakan distributor resmi dengan legalitas usaha lengkap, serta menerapkan standar mutu dan keselamatan kerja seperti ISO 9001 dan K3.'
+      }
+    ]; %>
+
+    <div class="faq-layout">
+      <div class="faq-intro">
+        <h2>FAQ</h2>
+        <p>Jawaban atas pertanyaan yang paling sering diajukan seputar genset, layanan, dan purna jual ETECH.</p>
+        <p class="faq-more">Belum menemukan jawabannya? <a href="https://wa.me/6285196095854" target="_blank" rel="noopener">Tanyakan langsung ke tim kami <span aria-hidden="true">→</span></a></p>
+      </div>
+
+      <div class="faq-list">
+        <% faqList.forEach(function(item, i) { %>
+          <details class="faq-item" name="faq"<%= i === 0 ? ' open' : '' %>>
+            <summary class="faq-q">
+              <span class="faq-mark" aria-hidden="true">?</span>
+              <span class="faq-q-text"><%= item.q %></span>
+              <span class="faq-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-a"><p><%= item.a %></p></div>
+          </details>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/ld+json"><%- JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqList.map(function(item) {
+      return { '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } };
+    })
+  }).replace(/</g, '\\u003c') %></script>
+</section>
+
+<%- include('partials/cta-band', {
+  sectionId: 'rfq',
+  heading: 'Siap mengajukan penawaran?',
+  text: 'Kirim kebutuhan daya Anda, tim kami akan menghubungi dalam 1x24 jam kerja.',
+  ctaLabel: 'Hubungi Kami →',
+  ctaUrl: 'https://wa.me/6285196095854'
+}) %>

@@ -1,0 +1,7 @@
+<%# Reusable section heading. Cara pakai: include partials/section-heading dengan data { heading, text (optional), center (optional boolean) } %>
+<div class="section-head <%= typeof center !== 'undefined' && center ? 'center' : '' %>">
+  <h2><%= heading %></h2>
+  <% if (typeof text !== 'undefined' && text) { %>
+    <p><%= text %></p>
+  <% } %>
+</div>

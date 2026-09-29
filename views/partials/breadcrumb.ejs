@@ -1,0 +1,12 @@
+<%# Cara pakai: include partials/breadcrumb dengan data { items: [{label, url}, ...] }. Item terakhir tanpa url dianggap halaman aktif. %>
+<div class="breadcrumb">
+  <div class="wrap">
+    <% items.forEach(function(item) { %>
+      <% if (item.url) { %>
+        <a href="<%= item.url %>"><%= item.label %></a><span>/</span>
+      <% } else { %>
+        <span class="current"><%= item.label %></span>
+      <% } %>
+    <% }); %>
+  </div>
+</div>

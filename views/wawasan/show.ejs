@@ -1,0 +1,150 @@
+<% const isPrev = typeof isPreview !== 'undefined' && isPreview; %>
+<% const cats = (locals.footer && locals.footer.categories) || []; %>
+
+<% if (isPrev) { %>
+  <div class="wawasan-preview-banner"><%= article.status === 'draft' ? 'Preview: DRAFT' : 'Preview' %></div>
+<% } %>
+
+<div class="wpost wrap">
+  <nav class="wpost-crumbs">
+    <a href="/wawasan">Wawasan</a>
+    <% if (article.category) { %>
+      <span>&rsaquo;</span>
+      <a href="/wawasan?category=<%= article.category.slug %>"><%= article.category.name %></a>
+    <% } %>
+    <span>&rsaquo;</span>
+    <span class="current"><%= article.title %></span>
+  </nav>
+
+  <div class="wpost-layout">
+    <article class="wpost-main">
+      <% if (article.category) { %>
+        <a class="wpost-badge" href="/wawasan?category=<%= article.category.slug %>"><%= article.category.name %></a>
+      <% } %>
+
+      <h1 class="wpost-title"><%= article.title %></h1>
+
+      <div class="wpost-meta">
+        <% if (article.published_at) { %>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <%= new Date(article.published_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) %>
+          </span>
+        <% } %>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          Dilihat <%= Number(article.views_count || 0).toLocaleString('id-ID') %> kali
+        </span>
+      </div>
+
+      <div class="wpost-share">
+        <strong>Bagikan:</strong>
+        <button type="button" class="wpost-copy" data-url="<%= publicUrl %>">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
+          <span data-copy-label>Copy Link</span>
+        </button>
+      </div>
+
+      <% if (article.thumbnail) { %>
+        <img class="wpost-hero" src="<%= article.thumbnail %>" alt="<%= article.title %>">
+      <% } %>
+
+      <div class="wpost-content"><%- article.content %></div>
+    </article>
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="wpost-side">
+
+      <% if (cats.length) { %>
+        <div class="wside-box" data-pager data-size="5">
+          <h3>Category</h3>
+          <ul class="wside-cats">
+            <% cats.forEach(function (c) { %>
+              <li data-item>
+                <a href="/wawasan?category=<%= c.slug %>">
+                  <span><%= c.name %></span>
+                  <% if (c.articles_count > 0) { %><em class="wside-count"><%= c.articles_count %></em><% } %>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+          <div class="wside-pager">
+            <button type="button" data-prev>Sebelumnya</button>
+            <span data-label>1/1</span>
+            <button type="button" data-next>Berikutnya</button>
+          </div>
+        </div>
+      <% } %>
+
+      <% if (related && related.length) { %>
+        <div class="wside-box" data-pager data-size="5">
+          <h3>Related Post</h3>
+          <div class="wside-related">
+            <% related.forEach(function (a) { %>
+              <a class="wside-rel-item" data-item href="/wawasan/<%= a.slug %>">
+                <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt=""><% } else { %><div class="wside-rel-ph"></div><% } %>
+                <p><%= a.title %></p>
+              </a>
+            <% }) %>
+          </div>
+          <div class="wside-pager">
+            <button type="button" data-prev>Sebelumnya</button>
+            <span data-label>1/1</span>
+            <button type="button" data-next>Berikutnya</button>
+          </div>
+        </div>
+      <% } %>
+
+    </aside>
+  </div>
+</div>
+
+<script>
+(function () {
+  // Paging sidebar (Category & Related Post)
+  document.querySelectorAll('[data-pager]').forEach(function (box) {
+    var size = parseInt(box.getAttribute('data-size'), 10) || 5;
+    var items = Array.prototype.slice.call(box.querySelectorAll('[data-item]'));
+    var prev = box.querySelector('[data-prev]');
+    var next = box.querySelector('[data-next]');
+    var label = box.querySelector('[data-label]');
+    var pager = box.querySelector('.wside-pager');
+    var pages = Math.max(1, Math.ceil(items.length / size));
+    var page = 1;
+
+    function render() {
+      items.forEach(function (el, i) {
+        el.style.display = (i >= (page - 1) * size && i < page * size) ? '' : 'none';
+      });
+      label.textContent = page + '/' + pages;
+      prev.disabled = page === 1;
+      next.disabled = page === pages;
+    }
+
+    if (pages === 1) { pager.style.display = 'none'; }
+    prev.addEventListener('click', function () { if (page > 1) { page--; render(); } });
+    next.addEventListener('click', function () { if (page < pages) { page++; render(); } });
+    render();
+  });
+
+  // Tombol Copy Link
+  var copyBtn = document.querySelector('.wpost-copy');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      var url = copyBtn.getAttribute('data-url');
+      var label = copyBtn.querySelector('[data-copy-label]');
+      var done = function () {
+        label.textContent = 'Tersalin!';
+        setTimeout(function () { label.textContent = 'Copy Link'; }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done);
+      } else {
+        var t = document.createElement('textarea');
+        t.value = url; document.body.appendChild(t); t.select();
+        document.execCommand('copy'); document.body.removeChild(t); done();
+      }
+    });
+  }
+})();
+</script>

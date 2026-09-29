@@ -1,0 +1,118 @@
+<% const cats = (locals.footer && locals.footer.categories) || []; %>
+<% const latest = (locals.footer && locals.footer.latest_articles) || []; %>
+
+<div class="wpost wrap">
+  <div class="wpost-layout">
+
+    <!-- ========== KOLOM KIRI: DAFTAR ARTIKEL ========== -->
+    <section class="wawasan-main">
+      <h1>Wawasan</h1>
+
+      <form class="wawasan-search" method="get" action="/wawasan">
+        <input type="text" name="search" value="<%= search %>" placeholder="Cari artikel...">
+        <% if (activeCategory) { %><input type="hidden" name="category" value="<%= activeCategory %>"><% } %>
+        <button type="submit">Cari</button>
+      </form>
+
+      <% if (!articles.length) { %>
+        <p class="wawasan-empty">Belum ada artikel.</p>
+      <% } %>
+
+      <div class="wawasan-grid">
+        <% articles.forEach(function (a) { %>
+          <a class="wawasan-card" href="/wawasan/<%= a.slug %>">
+            <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt="<%= a.title %>"><% } %>
+            <div class="wawasan-card-body">
+              <% if (a.category) { %><span class="wawasan-cat"><%= a.category.name %></span><% } %>
+              <h3><%= a.title %></h3>
+              <% if (a.excerpt) { %><p><%= a.excerpt %></p><% } %>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+
+      <% if (meta.last_page > 1) { %>
+        <nav class="wawasan-pager">
+          <% for (let p = 1; p <= meta.last_page; p++) { %>
+            <a class="<%= p === meta.current_page ? 'active' : '' %>"
+               href="/wawasan?page=<%= p %><%= activeCategory ? '&category=' + activeCategory : '' %><%= search ? '&search=' + encodeURIComponent(search) : '' %>"><%= p %></a>
+          <% } %>
+        </nav>
+      <% } %>
+    </section>
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="wpost-side">
+
+      <% if (cats.length) { %>
+        <div class="wside-box" data-pager data-size="5">
+          <h3>Category</h3>
+          <ul class="wside-cats">
+            <% cats.forEach(function (c) { %>
+              <li data-item>
+                <a class="<%= activeCategory === c.slug ? 'active' : '' %>" href="/wawasan?category=<%= c.slug %>">
+                  <span><%= c.name %></span>
+                  <% if (c.articles_count > 0) { %><em class="wside-count"><%= c.articles_count %></em><% } %>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+          <div class="wside-pager">
+            <button type="button" data-prev>Sebelumnya</button>
+            <span data-label>1/1</span>
+            <button type="button" data-next>Berikutnya</button>
+          </div>
+        </div>
+      <% } %>
+
+      <% if (latest.length) { %>
+        <div class="wside-box" data-pager data-size="5">
+          <h3>Related Post</h3>
+          <div class="wside-related">
+            <% latest.forEach(function (a) { %>
+              <a class="wside-rel-item" data-item href="/wawasan/<%= a.slug %>">
+                <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt=""><% } else { %><div class="wside-rel-ph"></div><% } %>
+                <p><%= a.title %></p>
+              </a>
+            <% }) %>
+          </div>
+          <div class="wside-pager">
+            <button type="button" data-prev>Sebelumnya</button>
+            <span data-label>1/1</span>
+            <button type="button" data-next>Berikutnya</button>
+          </div>
+        </div>
+      <% } %>
+
+    </aside>
+  </div>
+</div>
+
+<script>
+(function () {
+  document.querySelectorAll('[data-pager]').forEach(function (box) {
+    var size = parseInt(box.getAttribute('data-size'), 10) || 5;
+    var items = Array.prototype.slice.call(box.querySelectorAll('[data-item]'));
+    var prev = box.querySelector('[data-prev]');
+    var next = box.querySelector('[data-next]');
+    var label = box.querySelector('[data-label]');
+    var pager = box.querySelector('.wside-pager');
+    var pages = Math.max(1, Math.ceil(items.length / size));
+    var page = 1;
+
+    function render() {
+      items.forEach(function (el, i) {
+        el.style.display = (i >= (page - 1) * size && i < page * size) ? '' : 'none';
+      });
+      label.textContent = page + '/' + pages;
+      prev.disabled = page === 1;
+      next.disabled = page === pages;
+    }
+
+    if (pages === 1) { pager.style.display = 'none'; }
+    prev.addEventListener('click', function () { if (page > 1) { page--; render(); } });
+    next.addEventListener('click', function () { if (page < pages) { page++; render(); } });
+    render();
+  });
+})();
+</script>

@@ -1,0 +1,26 @@
+<nav class="main">
+  <div class="nav-inner">
+    <a href="/" class="brandmark">
+      <div class="glyph"><div class="tri"></div><div class="ring"></div></div>
+      <div>
+        <div class="word">ETECH</div>
+        <div class="sub">SOLUSI ENERGI ANDAL</div>
+      </div>
+    </a>
+
+    <ul>
+      <li><a class="navlink <%= currentPath === '/' ? 'active' : '' %>" href="/">Home</a></li>
+      <li><a class="navlink <%= currentPath === '/solusi-bisnis' ? 'active' : '' %>" href="/solusi-bisnis">Solusi Bisnis</a></li>
+      <li><a class="navlink <%= currentPath === '/products' ? 'active' : '' %>" href="/products">Katalog Produk</a></li>
+      <li><a class="navlink <%= currentPath === '/wawasan' ? 'active' : '' %>" href="/wawasan">Wawasan</a></li>
+      <li><a class="navlink <%= currentPath === '/about' ? 'active' : '' %>" href="/about">Tentang Etech</a></li>
+      <li><a class="navlink <%= currentPath === '/contact' ? 'active' : '' %>" href="/kontak">Kontak</a></li>
+    </ul>
+
+    <a href="https://wa.me/6285196095854" class="btn btn-soft" target="_blank" rel="noopener">HUBUNGI KAMI</a>
+
+    <button class="navbar-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>

@@ -1,0 +1,298 @@
+<%- include('partials/breadcrumb', {
+  items: [
+    { label: 'Etech', url: '/' },
+    { label: 'Katalog Produk' }
+  ]
+}) %>
+
+<section class="hero-brochure">
+  <img src="/images/hero-brochure-bg.jpg" alt="" class="hero-brochure-bg">
+  <div class="hero-brochure-overlay"></div>
+  <div class="wrap hero-brochure-inner">
+    <div class="hero-brochure-eyebrow"><span>KATALOG PRODUK</span></div>
+    <h1>Solusi Daya yang Siap Diandalkan</h1>
+    <p>Rangkaian genset dan produk kelistrikan Etech untuk kebutuhan industri, korporat, hingga rumah tangga.</p>
+  </div>
+</section>
+
+<section id="jenis" class="bg-dots">
+  <div class="wrap">
+    <%- include('partials/section-heading', {
+      eyebrow: 'PILIHAN BRAND',
+      heading: 'Pilih Genset Sesuai Kebutuhan Operasional Anda',
+      text: 'Kami menghadirkan beberapa lini brand agar Anda mendapat solusi cadangan daya yang paling sesuai dengan skala dan karakteristik kebutuhan Anda. Detail masing-masing brand ada di bawah.'
+    }) %>
+    <div class="brand-grid" id="brandGrid">
+      <% brands.forEach(function(brand, idx) { %>
+        <button type="button" class="brand-tile <%= idx === 0 ? 'active' : '' %>" data-brand="<%= brand.key %>" aria-pressed="<%= idx === 0 ? 'true' : 'false' %>">
+          <div class="brand-tile-body">
+            <span class="bname"><%= brand.name %></span>
+            <span class="btag"><%= brand.tagline %></span>
+            <p class="bdesc"><%= brand.heroDesc %></p>
+            <span class="bcta">Lihat Detail <span class="arrow">→</span></span>
+            <% if (brand.whyList && brand.whyList.length) { %>
+              <ul class="bfeatures">
+                <% brand.whyList.slice(0, 3).forEach(function(point) { %>
+                  <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                    <%= point %>
+                  </li>
+                <% }); %>
+              </ul>
+            <% } %>
+          </div>
+          <div class="brand-tile-media">
+            <img src="<%= brand.image %>" alt="<%= brand.name %>">
+          </div>
+        </button>
+      <% }); %>
+    </div>
+ <div class="brand-divider" id="brandDivider" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section id="spotlight" style="background:#fff;">
+  <div class="spotlight-focus-glow" id="spotlightGlow" aria-hidden="true"></div>
+  <div class="wrap">
+    <% brands.forEach(function(brand, idx) { %>
+      <div class="spot-panel <%= idx === 0 ? 'active' : '' %>" id="spot-<%= brand.key %>">
+        <div class="spotlight-grid">
+          <div class="spotlight-media">
+            <img src="<%= brand.image %>" alt="<%= brand.name %>">
+          </div>
+          <div class="spotlight-content">
+            <div class="eyebrow"><span class="rule"></span><%= brand.name %></div>
+            <h2><%= brand.heroTitle %></h2>
+            <p><%= brand.heroDesc %></p>
+            <div class="spec-rows">
+              <div class="spec-row">
+                <div class="spec-label">Tersedia dalam</div>
+                <div class="spec-value"><%= brand.availableList.join(', ') %></div>
+              </div>
+              <div class="spec-row">
+                <div class="spec-label">Cocok untuk</div>
+                <div class="spec-value"><%= brand.suitableList.join(', ') %></div>
+              </div>
+            </div>
+            <div class="why-panel">
+              <div class="why-panel-title">Kenapa <%= brand.name %> cocok untuk Anda</div>
+              <ul class="why-panel-grid">
+                <% brand.whyList.forEach(function(point) { %><li><%= point %></li><% }); %>
+              </ul>
+              <p class="why-panel-text"><%= brand.calloutText %></p>
+              <a href="https://wa.me/6285196095854" target="_blank" rel="noopener" class="btn btn-panel-dark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                Konsultasikan <%= brand.name %> via WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</section>
+
+<section class="stage-hero">
+  <img src="/images/produk/stage-hero-bg.jpg" alt="" class="stage-hero-bg">
+  <div class="stage-hero-overlay"></div>
+  <div class="wrap">
+    <div class="stage-hero-head">
+      <h2>Solusi Daya Andal untuk<br><span>Setiap Kebutuhan Anda</span></h2>
+      <p>Kami menyediakan layanan genset berkualitas tinggi dengan dukungan teknis profesional, agar bisnis dan operasional Anda tetap berjalan tanpa gangguan.</p>
+    </div>
+    <div class="stage-flow">
+      <div class="stage-block stage-services-block">
+        <div class="stage-block-head">
+          <div class="eyebrow eyebrow-dark"><span class="rule"></span>TAHAP PERTAMA</div>
+          <h3>Layanan Kami</h3>
+        </div>
+        <div class="stage-services">
+          <% const stageServices = [
+            { icon: '1.png', title: 'Penyediaan Genset', desc: 'Genset baru & second dengan berbagai kapasitas, dari 10 kVA hingga 2000 kVA.' },
+            { icon: '2.png', title: 'Instalasi & Commissioning', desc: 'Pemasangan profesional dan pengujian menyeluruh untuk performa maksimal.' },
+            { icon: '3.png', title: 'Service & Perawatan', desc: 'Tim teknisi berpengalaman untuk maintenance berkala dan perbaikan cepat.' },
+            { icon: '4.png', title: 'Suku Cadang Original', desc: 'Ketersediaan suku cadang asli dari brand terpercaya, dengan jaminan kualitas.' }
+          ]; %>
+          <% stageServices.forEach(function(s) { %>
+            <div class="stage-service">
+              <div class="icon"><img src="/images/produk/<%= s.icon %>" alt="<%= s.title %>" loading="lazy"></div>
+              <div class="stitle"><%= s.title %></div>
+              <div class="sdesc"><%= s.desc %></div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="stage-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+
+      <div class="stage-block stage-warranty">
+        <div class="stage-block-head">
+          <div class="eyebrow eyebrow-dark"><span class="rule"></span>TAHAP KEDUA</div>
+          <h3>Garansi Resmi & Kualitas Terjamin</h3>
+        </div>
+        <p>Kami memberikan garansi resmi untuk setiap unit genset yang kami jual, dilengkapi dengan layanan purna jual yang cepat dan responsif. Kepuasan Anda adalah prioritas kami.</p>
+
+        <div class="warranty-grid">
+          <% const warrantyList = [
+            { icon: '5.png', title: 'GARANSI RESMI', desc: 'Sesuai ketentuan pabrikan' },
+            { icon: '6.png', title: 'RESPON CEPAT', desc: 'Layanan teknis 24/7' },
+            { icon: '7.png', title: 'TEKNISI BERPENGALAMAN', desc: 'Tersertifikasi & profesional' },
+            { icon: '8.png', title: 'SERTIFIKAT & STANDAR', desc: 'ISO, SNI, dan standar internasional' }
+          ]; %>
+          <% warrantyList.forEach(function(w) { %>
+            <div class="warranty-item">
+              <div class="w-icon"><img src="/images/produk/<%= w.icon %>" alt="<%= w.title %>" loading="lazy"></div>
+              <div class="w-text">
+                <span class="w-title"><%= w.title %></span>
+                <span class="w-desc"><%= w.desc %></span>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sertifikasi" style="background:#fff; border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="qc-layout">
+      <div class="qc-intro">
+        <h2>Teruji Sebelum Sampai ke Tangan Anda</h2>
+        <p>Sertifikasi dan pengujian unit produk — bukan legalitas perusahaan (lihat halaman Solusi Bisnis untuk legalitas tender). Kami memastikan setiap genset melalui proses inspeksi dan pengujian ketat untuk menjamin performa, keamanan, dan kualitas terbaik.</p>
+        <ul class="qc-cert-list">
+          <% const certList = [
+            { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>', title: 'ISO 9001', desc: 'Quality Management System', tone: 'a' },
+            { icon: '<circle cx="12" cy="12" r="9"/><path d="M7.5 9.5a4.5 4.5 0 108.6 2M7.5 14.5a4.5 4.5 0 018.6-2"/>', title: 'CE Certification', desc: 'Conformité Européenne', tone: 'b' }
+          ]; %>
+          <% certList.forEach(function(c) { %>
+            <li>
+              <div class="qc-cert-badge qc-tone-<%= c.tone %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><%- c.icon %></svg></div>
+              <div class="qc-cert-text">
+                <span class="qc-cert-title"><%= c.title %></span>
+                <span class="qc-cert-desc"><%= c.desc %></span>
+              </div>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+
+      <div class="test-grid">
+        <% const testList = [
+          { img: 'test-performance.webp', icon: '<path d="M12 20a8 8 0 100-16 8 8 0 000 16z"/><path d="M12 12l4-2.5"/><path d="M12 8v1"/>', title: 'Performance Test', desc: 'Pengujian performa, output daya, dan stabilitas kerja genset untuk memastikan sesuai spesifikasi.', tone: 'a' },
+          { img: 'test-noise.jpg', icon: '<path d="M9 9v6h4l5 5V4l-5 5H9z"/><path d="M18 9a5 5 0 010 6"/>', title: 'Noise Test', desc: 'Pengukuran tingkat kebisingan untuk memastikan genset beroperasi sesuai standar lingkungan yang berlaku.', tone: 'b' },
+          { img: 'test-heat.jpg', icon: '<path d="M14 4a2 2 0 00-4 0v9.5a4 4 0 104 0V4z"/><path d="M12 9v4"/>', title: 'Heat Balance Test', desc: 'Pemeriksaan temperatur, sistem pendinginan dan keseimbangan panas untuk mencegah overheat.', tone: 'c' },
+          { img: 'test-rainproof.webp', icon: '<path d="M12 3c3 4 6 6.5 6 10a6 6 0 01-12 0c0-3.5 3-6 6-10z"/>', title: 'Rain-proof Test', desc: 'Pengujian ketahanan enclosure terhadap air dan kondisi cuaca ekstrem.', tone: 'd' }
+        ]; %>
+        <% testList.forEach(function(t) { %>
+          <div class="test-card">
+            <div class="test-card-media"><img src="/images/produk/<%= t.img %>" alt="<%= t.title %>" loading="lazy"></div>
+            <div class="test-card-icon qc-tone-<%= t.tone %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><%- t.icon %></svg></div>
+            <div class="test-card-title"><%= t.title %></div>
+            <p class="test-card-desc"><%= t.desc %></p>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proyek" class="bg-diagonal">
+  <div class="wrap">
+    <div class="proyek-head">
+      <div class="proyek-head-text">
+        <h2>Produk Genset Kami Sudah<br><span>Terpasang di Berbagai Lokasi</span></h2>
+        <p>Kepercayaan pelanggan adalah prioritas kami. Berikut beberapa proyek instalasi genset yang telah kami selesaikan di berbagai sektor industri di Indonesia.</p>
+      </div>
+    </div>
+
+    <div class="proyek-track" id="proyekTrack">
+      <%
+        // Data referensi proyek terpasang. Setiap item merepresentasikan satu
+        // studi kasus nyata (nama proyek, klien/pemilik proyek, sektor,
+        // lokasi, dan kapasitas unit). Struktur ini dibuat agar mudah nanti
+        // dipindah ke API/CMS tanpa mengubah markup di bawah.
+        const refList = [
+          {
+            label: 'Gedung Laboratorium Seni – ISI',
+            client: 'PT. Cipta Prima Perkasa',
+            location: 'Institut Seni Indonesia',
+            capacity: '1 x 600 kVA Perkins',
+            image: '/images/produk/ref-1.jpg'
+          },
+          {
+            label: 'Terminal LNG Teluk Lamong',
+            client: 'PT. Mega Sentosa Mandiri',
+            location: 'Teluk Lamong, Surabaya',
+            capacity: '1 x 1.000 kVA Perkins + Panel ATS',
+            image: '/images/produk/ref-2.webp'
+          },
+          {
+            label: 'RSI Attin Purbalingga',
+            client: null,
+            location: 'Purbalingga, Jawa Tengah',
+            capacity: '1 x 600 kVA Perkins',
+            image: '/images/produk/ref-3.jpg'
+          },
+          {
+            label: 'Program Siaga Bencana Surabaya',
+            client: 'PU Bina Marga',
+            location: 'Surabaya, Jawa Timur',
+            capacity: '6 x 1.000 kVA Perkins',
+            image: '/images/produk/ref-4.jpg'
+          },
+          {
+            label: 'Pabrik Rokok Tuton',
+            client: 'CV. Pusaka Hidup',
+            location: 'Semarang, Jawa Tengah',
+            capacity: '1 x 500 kVA Deutz',
+            image: '/images/produk/ref-5.jpg'
+          },
+          {
+            label: 'Kawasan Industri Kendal',
+            client: null,
+            location: 'Kendal, Jawa Tengah',
+            capacity: '1 x 50 kVA Cummins + Panel ATS Trailerized',
+            image: '/images/produk/ref-6.webp'
+          }
+        ];
+      %>
+      <% refList.forEach(function(ref) { %>
+        <div class="proyek-card">
+          <div class="proyek-media"><img src="<%= ref.image %>" alt="<%= ref.label %>" loading="lazy"></div>
+          <div class="proyek-body">
+            <h3><%= ref.label %></h3>
+            <% if (ref.client) { %>
+              <div class="proyek-meta">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                <%= ref.client %>
+              </div>
+            <% } %>
+            <div class="proyek-meta">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-12a7 7 0 10-14 0c0 5.6 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              <%= ref.location %>
+            </div>
+            <div class="proyek-meta">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+              <%= ref.capacity %>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <div class="proyek-progress"><div class="proyek-progress-bar" id="proyekProgressBar"></div></div>
+  </div>
+</section>
+
+<script src="/js/pages/produk-brand-pointer.js" defer></script>
+
+<%- include('partials/cta-band', {
+  variant: 'catalog',
+  heading: 'Konsultasikan kebutuhan genset Anda sekarang',
+  text: 'Tim kami siap membantu menentukan unit yang paling sesuai dengan skala dan karakteristik operasional Anda.',
+  ctaLabel: 'Konsultasikan via WhatsApp →',
+  ctaUrl: 'https://wa.me/6285196095854'
+}) %>

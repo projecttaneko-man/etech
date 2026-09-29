@@ -1,0 +1,160 @@
+<%- include('partials/breadcrumb', {
+  items: [
+    { label: 'Etech', url: '/' },
+    { label: 'Tentang Etech' }
+  ]
+}) %>
+
+<div class="page-hero about-hero-full" data-parallax>
+  <div class="page-hero-media">
+    <img src="/images/hero-about.jpg" alt="Tim Etech">
+  </div>
+  <div class="page-hero-overlay"></div>
+  <div class="wrap">
+    <div class="page-hero-inner">
+      <h1>Tentang Etech</h1>
+    </div>
+  </div>
+</div>
+
+<section id="cerita" class="company-intro">
+  <div class="wrap">
+    <div class="company-intro-grid">
+
+      <div class="company-intro-text">
+        <div class="eyebrow"><span class="rule"></span>INFORMASI PERUSAHAAN</div>
+        <h2>Distributor Genset Terpercaya</h2>
+        <p>
+          Etech hadir sebagai distributor genset dan solusi kelistrikan yang telah dipercaya di berbagai wilayah Indonesia.
+          Kami menghadirkan produk dari merek-merek pilihan dengan kualitas teruji, siap memenuhi kebutuhan daya mulai dari
+          rumah tangga, korporat, hingga skala industri.
+        </p>
+        <p>
+          Didukung tim teknis berpengalaman dan bersertifikasi, kami memberikan pendampingan menyeluruh — mulai dari konsultasi
+          kebutuhan, instalasi, perawatan berkala, penggantian suku cadang, hingga layanan darurat agar operasional
+          Anda tetap berjalan tanpa gangguan.
+        </p>
+      </div>
+
+      <div class="company-intro-features">
+        <% const infoList = [
+          {
+            title: 'Produk Berkualitas',
+            desc: 'Kami hanya menghadirkan genset dan komponen kelistrikan dengan mesin dan generator asli bergaransi penuh.',
+            icon: 'star'
+          },
+          {
+            title: 'Jaminan Garansi',
+            desc: 'Setiap unit yang kami distribusikan disertai garansi resmi langsung dari pabrik beserta sertifikat keasliannya.',
+            icon: 'badge'
+          },
+          {
+            title: 'Distributor Resmi',
+            desc: 'Dipercaya oleh ratusan klien dari berbagai sektor — pertambangan, migas, telekomunikasi, dan lainnya di seluruh Indonesia.',
+            icon: 'box'
+          },
+          {
+            title: 'Harga Terjangkau',
+            desc: 'Karena dipasok langsung dari pabrik, harga produk kami lebih kompetitif dibanding distributor lain.',
+            icon: 'cash'
+          }
+        ]; %>
+
+        <% const icons = {
+          star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+          badge: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.7 13.6 7 22l5-3 5 3-1.7-8.4"/></svg>',
+          box: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>',
+          cash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 10v.01M18 14v.01"/></svg>'
+        }; %>
+
+        <% infoList.forEach(function(item) { %>
+          <div class="info-feature">
+            <div class="info-feature-icon"><%- icons[item.icon] %></div>
+            <div>
+              <h3><%= item.title %></h3>
+              <p><%= item.desc %></p>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section id="nilai" class="values-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="rule"></span>NILAI KAMI</div>
+      <h2>Yang menjadi pegangan kami</h2>
+    </div>
+
+    <div class="values-grid">
+      <% const nilaiList = [
+        { title: 'Perencanaan Matang', desc: 'Setiap kebutuhan direncanakan secara detail dan profesional agar tepat sasaran.', image: '/images/nilai-1.png' },
+        { title: 'Produk Andal', desc: 'Hanya menawarkan produk berkualitas tinggi yang tangguh dan siap bekerja optimal.', image: '/images/nilai-2.png' },
+        { title: 'Eksekusi Presisi', desc: 'Bekerja cepat, tepat, dan penuh ketelitian di setiap tahap pekerjaan.', image: '/images/nilai-3.png' },
+        { title: 'Purna Jual Responsif', desc: 'Layanan purna jual yang cepat tanggap agar operasional tetap lancar.', image: '/images/nilai-4.png' }
+      ]; %>
+
+      <% nilaiList.forEach(function(v) { %>
+        <div class="value-card">
+        <div class="value-icon-circle">
+          <img src="<%= v.image %>" alt="<%= v.title %>">
+        </div>
+        <div class="value-body">
+          <h3><%= v.title %></h3>
+          <p><%= v.desc %></p>
+        </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section id="tim" class="team-section bg-dots">
+  <div class="wrap">
+    <div class="section-head center team-section-head">
+      <div class="eyebrow"><span class="rule"></span>TIM KAMI</div>
+      <h2>Orang-orang di balik Etech</h2>
+      <svg class="heading-squiggle" viewBox="0 0 160 12" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 8c20-10 40 10 60 0s40-10 60 0" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <p>Sekelompok profesional berpengalaman yang memastikan setiap kebutuhan kelistrikan Anda ditangani dengan tepat, dari perencanaan hingga purna jual.</p>
+    </div>
+
+    <div class="team-grid">
+      <% const timList = [
+        { name: 'XX', role: 'Direktur Utama', image: '/images/tentang/tim-1.jpg' },
+        { name: 'XX', role: 'Manajer Operasional', image: '/images/tentang/tim-2.jpg' },
+        { name: 'XX', role: 'Kepala Teknisi', image: '/images/tentang/tim-3.jpg' },
+        { name: 'XX', role: 'Manajer Pemasaran', image: '/images/tentang/tim-4.jpg' }
+      ]; %>
+      <% timList.forEach(function(member) { %>
+        <div class="team-card">
+          <div class="team-photo">
+            <img
+              src="<%= member.image %>"
+              alt="Foto tim Etech"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="team-photo-fallback">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+              </svg>
+            </div>
+          </div>
+          <div class="tname"><%= member.name %></div>
+          <div class="trole"><%= member.role %></div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/cta-band', {
+  sectionId: 'cta',
+  heading: 'Mari bangun sistem daya Anda bersama kami',
+  text: 'Konsultasikan kebutuhan Anda sekarang dan temukan solusi kelistrikan yang tepat.',
+  ctaLabel: 'Hubungi Kami →',
+  ctaUrl: 'https://wa.me/6285196095854'
+}) %>

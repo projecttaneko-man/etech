@@ -1,0 +1,8 @@
+<%# Cara pakai: include partials/product-simple-card dengan data { product } — object: { slug, name, category, image } %>
+<div class="product-simple">
+  <div class="ps-img">
+    <img src="<%= product.image %>" alt="<%= product.name %>">
+  </div>
+  <div class="ps-name"><%= product.name %></div>
+  <div class="ps-cat"><%= product.category %></div>
+</div>
