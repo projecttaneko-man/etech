@@ -1,16 +1,16 @@
 <%# ===== Data hero ===== %>
 <% const heroSlides = [
-  { image: '/images/brands/hero-home.png', alt: 'Genset industrial Etech di area bandara dan gedung komersial' }
+  { image: '/images/brands/hero-home.png', alt: 'Distributor genset industrial Etech untuk genset pabrik, genset kantor, dan genset proyek' }
   // Tambah slide lain dengan format yang sama, mis:
   // { image: '/images/hero/hero-2.jpg', alt: '...' }
   // Jika slide > 1, indikator "01 / 0N" dan pergantian otomatis aktif sendiri (lihat main.js).
 ]; %>
 
 <% const sektorList = [
-  { icon: 'industrial',  title: 'Industrial Generator',  desc: 'Untuk kebutuhan daya besar & operasional berat dalam jangka panjang.',          url: '/produk' },
-  { icon: 'commercial',  title: 'Commercial Generator',  desc: 'Untuk mendukung aktivitas bisnis dengan sistem daya yang stabil dan efisien.', url: '/produk' },
-  { icon: 'standby',     title: 'Standby Generator',     desc: 'Sebagai sumber daya cadangan otomatis saat terjadi pemadaman listrik.',        url: '/produk' },
-  { icon: 'residential', title: 'Residential Generator', desc: 'Solusi praktis dan ringkas untuk kebutuhan rumah tangga dan usaha kecil.',     url: '/produk' }
+  { icon: 'industrial',  title: 'Industrial Generator',  desc: 'Genset pabrik untuk kebutuhan daya besar & operasional berat jangka panjang.',   url: '/produk' },
+  { icon: 'commercial',  title: 'Commercial Generator',  desc: 'Genset kantor dan gedung komersial dengan sistem daya yang stabil dan efisien.', url: '/produk' },
+  { icon: 'standby',     title: 'Standby Generator',     desc: 'Sumber daya cadangan otomatis saat terjadi pemadaman listrik.',                  url: '/produk' },
+  { icon: 'residential', title: 'Residential Generator', desc: 'Genset silent yang ringkas untuk rumah tangga dan usaha kecil.',                 url: '/produk' }
 ]; %>
 
 <%# Path SVG (stroke) untuk ikon tiap tipe generator %>
@@ -21,6 +21,7 @@
   residential: '<path d="M3 11 12 3l9 8"/><path d="M5 10v11h14V10"/><path d="M10 21v-6h4v6"/>'
 }; %>
 
+<%# ===== 1. HERO ===== %>
 <section class="hh" data-hero-slider data-hero-glow aria-label="Beranda">
   <div class="hh-slides">
     <% heroSlides.forEach(function(slide, i) { %>
@@ -33,11 +34,11 @@
   <div class="hero-glow" aria-hidden="true"></div>
 
   <div class="wrap hh-content">
-    <h1>Genset Berkualitas untuk Operasional
+    <h1>Distributor Genset Terpercaya untuk Operasional
       <span class="accent rotate-text" data-rotate-text
             data-rotate-words="Tanpa Henti,Siap Kapan Saja,Andal Sepanjang Waktu">Tanpa Henti</span>
     </h1>
-    <p class="hh-sub">Kami menyediakan genset dengan kualitas terbaik, teknologi modern, dan layanan profesional untuk mendukung kelancaran bisnis dan operasional Anda.</p>
+    <p class="hh-sub">Supplier dan pusat genset untuk genset kantor, genset proyek, dan genset pabrik, termasuk genset silent. Sebagai vendor genset berpengalaman, kami menyediakan unit berkualitas, teknologi modern, dan layanan profesional untuk kelancaran bisnis Anda.</p>
     <div class="hh-ctas">
       <a href="/produk" class="hh-btn" data-magnetic>Lihat Produk Kami <span class="arrow" aria-hidden="true">→</span></a>
     </div>
@@ -82,11 +83,12 @@
   </div>
 </section>
 
+<%# ===== 2. ABOUT (alasan memilih Etech) ===== %>
 <section id="kenapa">
   <div class="wrap">
     <%- include('partials/section-heading', {
       heading: 'Alasan klien mempercayakan kebutuhan daya mereka ke Etech',
-      text: 'Empat prinsip kerja yang kami pegang di setiap proyek, besar maupun kecil.'
+      text: 'Sebagai distributor dan supplier genset, ada empat prinsip kerja yang kami pegang di setiap proyek, besar maupun kecil.'
     }) %>
     <div class="why-grid">
       <div class="reason-item">
@@ -109,79 +111,7 @@
   </div>
 </section>
 
-<section id="tipe" style="background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-  <div class="wrap">
-    <div class="tipe-layout">
-      <div class="tipe-collage">
-        <div class="tipe-collage-dots"></div>
-        <div class="tipe-img-main"><img src="/images/brands/tipe1.jpg" alt="Genset industrial Etech"></div>
-        <div class="tipe-img-sub"><img src="/images/brands/tipe2.jpg" alt="Detail unit genset"></div>
-      </div>
-      <div>
-        <%- include('partials/section-heading', {
-          heading: 'Sesuaikan genset dengan kebutuhan lapangan Anda',
-          text: 'Empat kategori utama — silakan sesuaikan dengan kondisi lokasi dan kebutuhan daya Anda.',
-          center: true
-        }) %>
-        <div class="tipe-points">
-          <% const tipeList = [
-            { title: 'Open Type', desc: 'Tanpa rumah pelindung, cocok untuk ruang genset tersendiri atau fasilitas indoor.' },
-            { title: 'Silent Type', desc: 'Dilengkapi kanopi peredam suara untuk lingkungan yang membutuhkan tingkat kebisingan rendah.' },
-            { title: 'Genset Portable', desc: 'Dirancang untuk mobilitas tinggi dengan roda, mudah dipindahkan untuk kebutuhan lapangan atau outdoor.' },
-            { title: 'Genset Bensin', desc: 'Menggunakan bahan bakar bensin, cocok untuk kebutuhan daya sementara atau situasi darurat.' }
-          ]; %>
-          <% tipeList.forEach(function(item, i) { %>
-            <div class="tipe-point">
-              <div class="tipe-num"><%= i + 1 %></div>
-              <div>
-                <h4><%= item.title %></h4>
-                <p><%= item.desc %></p>
-              </div>
-            </div>
-          <% }); %>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="customer" class="customer-section">
-  <div class="wrap">
-    <%- include('partials/section-heading', {
-      heading: 'Dipercaya oleh berbagai instansi dan perusahaan',
-      text: 'Kami melayani kebutuhan kelistrikan untuk sektor industri, komersial, hingga pemerintahan.',
-      center: true
-    }) %>
-    <div class="customer-grid">
-      <% if (typeof clients !== 'undefined' && clients && clients.length) { %>
-        <% clients.forEach(function(client) { %>
-          <div class="customer-tile"><img src="<%= client.logo %>" alt="<%= client.name %>"></div>
-        <% }); %>
-      <% } else { %>
-        <% for (let i = 0; i < 8; i++) { %>
-          <div class="customer-tile" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="11" rx="1"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>
-          </div>
-        <% } %>
-      <% } %>
-    </div>
-  </div>
-</section>
-
-<section id="produk" class="produk-notice">
-  <div class="wrap">
-    <%- include('partials/section-heading', {
-      heading: 'Beberapa produk unggulan kami',
-      center: true
-    }) %>
-    <div class="products-simple">
-      <% products.forEach(function(product) { %>
-        <%- include('partials/product-simple-card', { product: product }) %>
-      <% }); %>
-    </div>
-  </div>
-</section>
-
+<%# ===== 3. GENERATOR SET DARI BERBAGAI MERK ===== %>
 <section class="brand-section">
   <div class="wrap">
     <div class="mitra-head">
@@ -209,7 +139,7 @@
       <div data-marquee-track>
         <% brandsToShow.forEach(function(brand) { %>
           <div class="partner-tile">
-            <img src="<%= brand.logo %>" alt="<%= brand.name %>">
+            <img src="<%= brand.logo %>" alt="<%= brand.name %>" height="44">
           </div>
         <% }); %>
       </div>
@@ -217,6 +147,128 @@
   </div>
 </section>
 
+<%# ===== 4. PRODUK UNGGULAN ===== %>
+<section id="produk" class="produk-notice">
+  <div class="wrap">
+    <%- include('partials/section-heading', {
+      heading: 'Beberapa produk unggulan kami',
+      text: 'Pilihan genset kantor, genset pabrik, genset proyek, dan genset silent dari supplier genset terpercaya.',
+      center: true
+    }) %>
+    <div class="products-simple">
+      <% products.forEach(function(product) { %>
+        <%- include('partials/product-simple-card', { product: product }) %>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<%# ===== 5. DIPERCAYA OLEH (carousel logo abu-abu, loop otomatis) ===== %>
+<section id="customer" class="customer-section">
+  <div class="wrap">
+    <%- include('partials/section-heading', {
+      heading: 'Dipercaya oleh berbagai instansi dan perusahaan',
+      text: 'Kami melayani kebutuhan kelistrikan untuk sektor industri, komersial, hingga pemerintahan.',
+      center: true
+    }) %>
+    <div class="partner-marquee customer-marquee" data-marquee data-marquee-speed="0.5">
+      <div data-marquee-track>
+        <% if (typeof clients !== 'undefined' && clients && clients.length) { %>
+          <% clients.forEach(function(client) { %>
+            <div class="customer-tile"><img src="<%= client.logo %>" alt="<%= client.name %>" height="44"></div>
+          <% }); %>
+        <% } else { %>
+          <% for (let i = 0; i < 8; i++) { %>
+            <div class="customer-tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="11" rx="1"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>
+            </div>
+          <% } %>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ===== 6. TIPE GENSET ===== %>
+<section id="tipe">
+  <div class="wrap">
+    <div class="tipe-layout">
+      <div class="tipe-collage">
+        <div class="tipe-collage-dots"></div>
+        <div class="tipe-img-main"><img src="/images/brands/tipe1.jpg" alt="Genset industrial Etech"></div>
+        <div class="tipe-img-sub"><img src="/images/brands/tipe2.jpg" alt="Detail unit genset"></div>
+      </div>
+      <div>
+        <%- include('partials/section-heading', {
+          heading: 'Sesuaikan genset dengan kebutuhan lapangan Anda',
+          text: 'Empat kategori utama — silakan sesuaikan dengan kondisi lokasi dan kebutuhan daya Anda.',
+          center: true
+        }) %>
+        <div class="tipe-points">
+          <% const tipeList = [
+            { title: 'Open Type', desc: 'Tanpa rumah pelindung, cocok untuk genset pabrik di ruang genset tersendiri atau fasilitas indoor.' },
+            { title: 'Silent Type', desc: 'Genset silent dengan kanopi peredam suara, ideal untuk genset kantor dan lingkungan yang membutuhkan kebisingan rendah.' },
+            { title: 'Genset Portable', desc: 'Dirancang untuk mobilitas tinggi dengan roda, mudah dipindahkan untuk genset proyek atau kebutuhan outdoor.' },
+            { title: 'Genset Bensin', desc: 'Menggunakan bahan bakar bensin, cocok untuk kebutuhan daya sementara atau situasi darurat.' }
+          ]; %>
+          <% tipeList.forEach(function(item, i) { %>
+            <div class="tipe-point">
+              <div class="tipe-num"><%= i + 1 %></div>
+              <div>
+                <h4><%= item.title %></h4>
+                <p><%= item.desc %></p>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ===== 7. PORTFOLIO CAROUSEL (id proyekTrack / proyekProgressBar dipakai main.js) ===== %>
+<%# Data: kirim variabel `projects` dari route; jika tidak ada, dipakai contoh di bawah. %>
+<% const projectList = (typeof projects !== 'undefined' && projects && projects.length) ? projects : [
+  { name: 'Proyek Genset Bandara',     image: '/images/proyek/proyek-1.jpg', location: 'Lokasi proyek', sector: 'Bandara' },
+  { name: 'Proyek Genset Gedung',      image: '/images/proyek/proyek-2.jpg', location: 'Lokasi proyek', sector: 'Komersial' },
+  { name: 'Proyek Genset Pabrik',      image: '/images/proyek/proyek-3.jpg', location: 'Lokasi proyek', sector: 'Industri' },
+  { name: 'Proyek Genset Pemerintahan', image: '/images/proyek/proyek-4.jpg', location: 'Lokasi proyek', sector: 'Pemerintahan' }
+]; %>
+<section id="proyek" class="proyek-home">
+  <div class="wrap">
+    <div class="proyek-head">
+      <div class="proyek-head-text">
+        <%- include('partials/section-heading', {
+          heading: 'Proyek genset yang telah kami kerjakan',
+          text: 'Portofolio pengadaan dan instalasi genset untuk berbagai sektor.',
+          center: true
+        }) %>
+      </div>
+    </div>
+    <div class="proyek-track" id="proyekTrack">
+      <% projectList.forEach(function(p) { %>
+        <div class="proyek-card">
+          <div class="proyek-media"><img src="<%= p.image %>" alt="<%= p.name %>" loading="lazy"></div>
+          <div class="proyek-body">
+            <h3><%= p.name %></h3>
+            <div class="proyek-meta">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span><%= p.location %></span>
+            </div>
+            <div class="proyek-meta">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+              <span><%= p.sector %></span>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    <div class="proyek-progress"><div class="proyek-progress-bar" id="proyekProgressBar"></div></div>
+    <div class="proyek-more"><a href="/proyek" class="btn btn-outline">Lihat Semua Proyek →</a></div>
+  </div>
+</section>
+
+<%# ===== 8. CTA ===== %>
 <section class="cta-final">
   <div class="cta-dome">
     <div class="cta-blob cta-blob-a"></div>

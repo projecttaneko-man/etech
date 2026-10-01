@@ -1,0 +1,96 @@
+<%- include('partials/breadcrumb', {
+  items: [
+    { label: 'Etech', url: '/' },
+    { label: 'Proyek' }
+  ]
+}) %>
+
+<style>
+  .pg-section { padding: 64px 0 80px; background: #fafafa; }
+  .pg-head { text-align: center; max-width: 960px; margin: 0 auto 48px; }
+  .pg-head h1 { font-size: clamp(2rem, 4vw, 2.75rem); color: #27408b; margin: 0 0 12px; }
+  .pg-head h2 { font-size: clamp(1.1rem, 2vw, 1.5rem); color: #18243a; margin: 0 0 20px; }
+  .pg-head p { color: #333; line-height: 1.7; margin: 0; }
+
+  .pg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .pg-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 16px 24px 32px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .08);
+  }
+  .pg-media { aspect-ratio: 4 / 3; overflow: hidden; margin: 8px -8px 24px; background: #eee; }
+  .pg-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pg-desc { margin: 0 0 16px; line-height: 1.8; color: #222; }
+  .pg-specs { margin: 0; padding-left: 28px; list-style: circle; line-height: 1.9; color: #222; }
+
+  .pg-info { text-align: center; color: #6f625a; font-size: .95rem; margin: 0 0 28px; }
+
+  .pg-pagination { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 48px; }
+  .pg-page {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 42px; height: 42px; padding: 0 14px;
+    border: 1px solid #e3d9d0; border-radius: 10px; background: #fff;
+    color: #2a1f1a; font-weight: 600; text-decoration: none;
+    transition: background .2s, color .2s, border-color .2s;
+  }
+  .pg-page:hover { border-color: #b4561a; color: #b4561a; }
+  .pg-page.is-active { background: #b4561a; border-color: #b4561a; color: #fff; }
+
+  @media (max-width: 900px) { .pg-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) {
+    .pg-grid { grid-template-columns: 1fr; }
+    .pg-section { padding: 40px 0 56px; }
+  }
+</style>
+
+<section class="pg-section" id="daftar-proyek">
+  <div class="wrap">
+    <div class="pg-head">
+      <h1>Proyek Kami</h1>
+      <h2>Solusi Daya Terintegrasi dengan Pilihan Engine Global Terkemuka</h2>
+      <p>Etech telah mendukung berbagai kebutuhan daya untuk industri, komersial, dan proyek skala besar. Setiap instalasi dilakukan dengan perencanaan teknis yang matang dan standar kerja profesional untuk memastikan sistem berjalan optimal.</p>
+    </div>
+
+    <p class="pg-info">Menampilkan <%= from %>–<%= to %> dari <%= total %> proyek</p>
+
+    <div class="pg-grid">
+      <% projects.forEach(function (p) { %>
+        <article class="pg-card">
+          <div class="pg-media">
+            <img src="<%= p.image %>" alt="<%= p.title %>" width="400" height="300" loading="lazy">
+          </div>
+          <p class="pg-desc">Project <%= p.title %>. <strong><%= p.summary %>.</strong></p>
+          <ul class="pg-specs">
+            <li>Model: <%= p.model %> – <%= p.type %></li>
+            <li>Engine: <%= p.engine %></li>
+            <li>Alternator: <%= p.alternator %></li>
+            <li>Controller: <%= p.controller %></li>
+          </ul>
+        </article>
+      <% }); %>
+    </div>
+
+    <% if (totalPages > 1) { %>
+      <nav class="pg-pagination" aria-label="Halaman proyek">
+        <% if (page > 1) { %>
+          <a class="pg-page pg-page-nav" href="/proyek?page=<%= page - 1 %>#daftar-proyek" rel="prev">← Sebelumnya</a>
+        <% } %>
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <a class="pg-page<%= i === page ? ' is-active' : '' %>" href="/proyek?page=<%= i %>#daftar-proyek"<%- i === page ? ' aria-current="page"' : '' %>><%= i %></a>
+        <% } %>
+        <% if (page < totalPages) { %>
+          <a class="pg-page pg-page-nav" href="/proyek?page=<%= page + 1 %>#daftar-proyek" rel="next">Selanjutnya →</a>
+        <% } %>
+      </nav>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/cta-band', {
+  sectionId: 'rfq',
+  heading: 'Punya proyek serupa?',
+  text: 'Kirim kebutuhan daya Anda, tim kami akan menghubungi dalam 1x24 jam kerja.',
+  ctaLabel: 'Hubungi Kami →',
+  ctaUrl: 'https://wa.me/6285196095854'
+}) %>

@@ -14,7 +14,7 @@
   <div class="wrap">
     <div class="hero-inner">
       <h1>Solusi Genset Terpercaya untuk <span class="accent">Kelancaran Bisnis Anda</span></h1>
-      <p class="hero-sub">Menyediakan genset berkualitas, layanan profesional, dan dukungan teknis terbaik untuk kebutuhan industri, komersial, maupun perkantoran.</p>
+      <p class="hero-sub">Distributor dan supplier genset yang menyediakan genset berkualitas, layanan profesional, dan dukungan teknis terbaik untuk kebutuhan genset kantor, genset pabrik, dan genset proyek.</p>
     </div>
   </div>
 </section>
@@ -74,6 +74,39 @@
   </div>
 </section>
 
+<section id="proses-kerja" class="alur-section">
+  <div class="wrap">
+    <%- include('partials/section-heading', {
+      heading: 'Proses kerja kami, dari konsultasi sampai genset beroperasi',
+      text: 'Lima langkah yang jelas dan terukur, supaya Anda tahu apa yang terjadi di setiap tahap.',
+      center: true
+    }) %>
+
+    <% const alurList = [
+      { title: 'Konsultasi Kebutuhan', desc: 'Sampaikan kebutuhan daya Anda lewat WhatsApp. Tim kami menghubungi Anda dalam 1x24 jam kerja.' },
+      { title: 'Survei & Rekomendasi', desc: 'Survei lokasi bila diperlukan, analisis kebutuhan daya, lalu rekomendasi kapasitas yang paling sesuai.' },
+      { title: 'Penawaran', desc: 'Penawaran rinci beserta estimasi jadwal pengiriman dan cakupan garansi sebelum Anda memutuskan.' },
+      { title: 'Pengiriman & Instalasi', desc: 'Unit dikirim ke lokasi dan dipasang oleh teknisi bersertifikat.' },
+      { title: 'Commissioning & Serah Terima', desc: 'Pengujian menyeluruh, serah terima unit, dilanjutkan perawatan berkala dan dukungan purna jual.' }
+    ]; %>
+
+    <ol class="alur-list">
+      <% alurList.forEach(function(step, i) { %>
+        <li class="alur-step">
+          <span class="alur-num" aria-hidden="true"><%= String(i + 1).padStart(2, '0') %></span>
+          <div class="alur-body">
+            <h3><%= step.title %></h3>
+            <p><%= step.desc %></p>
+          </div>
+        </li>
+      <% }); %>
+    </ol>
+
+    <div class="alur-cta">
+      <a href="https://wa.me/6285196095854" target="_blank" rel="noopener" class="btn btn-primary">Mulai Konsultasi Gratis →</a>
+    </div>
+  </div>
+</section>
 
 <section id="produk" class="produk-section">
   <div class="produk-decor" aria-hidden="true">
@@ -116,7 +149,6 @@
       <p>Beberapa proyek genset yang sedang kami tangani untuk berbagai klien.</p>
     </div>
 
-    <%# Ikon spesifikasi (path SVG, stroke). Ganti/tambah key sesuai kebutuhan. %>
     <% const proyekIcons = {
       gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
       bolt: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
@@ -125,7 +157,7 @@
     }; %>
 
     <% const proyekList = [
- {
+      {
         name: 'PT. Handy Mandiri Steel',
         desc: 'Proyek 1 unit genset Bremen 30 kVA.',
         image: '/images/solusi-bisnis/center.webp',

@@ -1,8 +1,9 @@
-<%# Cara pakai: include partials/product-simple-card dengan data { product } — object: { slug, name, category, image } %>
+<%# Cara pakai: include partials/product-simple-card dengan data { product } — object: { slug, name, category, image, shortDesc (opsional) } %>
+<% const psDesc = product.shortDesc || (product.category + ' berkualitas dari distributor genset terpercaya untuk kebutuhan operasional Anda.'); %>
 <div class="product-simple">
   <div class="ps-img">
     <img src="<%= product.image %>" alt="<%= product.name %>">
   </div>
   <div class="ps-name"><%= product.name %></div>
-  <div class="ps-cat"><%= product.category %></div>
+  <p class="ps-desc"><%= psDesc %></p>
 </div>

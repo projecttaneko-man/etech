@@ -123,11 +123,10 @@
 
     if (pages === 1) { pager.style.display = 'none'; }
     prev.addEventListener('click', function () { if (page > 1) { page--; render(); } });
-    next.addEventListener('click', function () { if (page < pages) { page++; render(); } });
+    next.addEventListener('click', function () { if (page < pages ) { page++; render(); } });
     render();
   });
-
-  // Tombol Copy Link
+  
   var copyBtn = document.querySelector('.wpost-copy');
   if (copyBtn) {
     copyBtn.addEventListener('click', function () {

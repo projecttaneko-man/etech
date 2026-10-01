@@ -81,6 +81,31 @@
     </div>
   </div>
 </section>
+
+<section id="fasilitas" class="fasilitas-section">
+  <div class="wrap">
+    <%- include('partials/section-heading', {
+      heading: 'Workshop dan kantor Etech',
+      text: 'Tempat tim kami merencanakan, menyiapkan, dan merawat genset untuk klien di berbagai sektor.',
+      center: true
+    }) %>
+
+    <% const fasilitasList = [
+      { image: '/images/workshop.jpeg', alt: 'Workshop Etech tempat persiapan dan perawatan genset', caption: 'Workshop Etech' },
+      { image: '/images/sr_land.jpeg', alt: 'Kantor Etech distributor genset', caption: 'Kantor Etech' }
+    ]; %>
+
+    <div class="fasilitas-grid">
+      <% fasilitasList.forEach(function(item) { %>
+        <figure class="fasilitas-item">
+          <img src="<%= item.image %>" alt="<%= item.alt %>" loading="lazy">
+          <figcaption><%= item.caption %></figcaption>
+        </figure>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
 <section id="nilai" class="values-section">
   <div class="wrap">
     <div class="section-head">

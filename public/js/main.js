@@ -1,4 +1,3 @@
-// Fallback gambar: ganti dengan placeholder SVG jika foto gagal dimuat
 (function () {
   var svg =
     '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">' +
@@ -13,7 +12,6 @@
   var fallback = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
 
   function applyFallback(img) {
-    // Cegah loop error tak berujung jika placeholder itu sendiri gagal
     if (img.src === fallback) return;
     img.src = fallback;
     img.alt = 'Foto (placeholder)';
@@ -23,61 +21,16 @@
     img.addEventListener('error', function () {
       applyFallback(img);
     });
-    // Gambar bisa sudah gagal sebelum listener terpasang
     if (img.complete && img.naturalWidth === 0) applyFallback(img);
   });
 })();
 
-// Toggle menu mobile
-(function () {
-  var toggle = document.querySelector('.navbar-toggle');
-  var menu = document.querySelector('nav.main ul');
-  if (!toggle || !menu) return;
-
-  toggle.addEventListener('click', function () {
-    var isOpen = menu.classList.toggle('is-open');
-    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-})();
-
-// Brand spotlight (halaman Katalog Produk): klik tile -> tampilkan panel #spot-{data-brand}
-(function () {
-  var tiles = document.querySelectorAll('#brandGrid .brand-tile');
-  if (!tiles.length) return;
-
-  tiles.forEach(function (tile) {
-    tile.addEventListener('click', function () {
-      var key = tile.getAttribute('data-brand');
-      var targetPanel = document.getElementById('spot-' + key);
-      if (!targetPanel) return;
-
-      tiles.forEach(function (t) {
-        t.classList.remove('active');
-        t.setAttribute('aria-pressed', 'false');
-      });
-      tile.classList.add('active');
-      tile.setAttribute('aria-pressed', 'true');
-
-      document.querySelectorAll('.spot-panel').forEach(function (p) {
-        p.classList.remove('active');
-      });
-      targetPanel.classList.add('active');
-
-      var spotlight = document.getElementById('spotlight');
-      if (spotlight) spotlight.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-})();
-
-// Carousel Portofolio Proyek (halaman Katalog Produk)
-// Auto-scroll kontinu; kartu digandakan sekali agar loop kembali ke awal tanpa patah.
-// Berhenti saat hover/sentuh/fokus.
 (function () {
   var track = document.getElementById('proyekTrack');
   var progressBar = document.getElementById('proyekProgressBar');
   if (!track) return;
 
-  var SPEED = 0.6; // px per frame (~36px/detik di 60fps)
+  var SPEED = 0.6;
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isPaused = false;
   var loopWidth = 0;
@@ -95,12 +48,15 @@
     return parseFloat(trackStyle.columnGap || trackStyle.gap || 20) || 20;
   }
 
-  // Lebar satu set kartu asli (termasuk gap terakhir) = jarak titik reset loop
   function computeLoopWidth() {
     if (!originalCards.length) return 0;
     var first = originalCards[0];
     var lastOriginal = originalCards[originalCards.length - 1];
     return (lastOriginal.offsetLeft + lastOriginal.offsetWidth + trackGap()) - first.offsetLeft;
+  }
+
+  function recalc() {
+    loopWidth = computeLoopWidth();
   }
 
   function updateProgress() {
@@ -131,24 +87,18 @@
     if (document.hidden) pause(); else resume();
   });
 
-  window.addEventListener('resize', function () {
-    loopWidth = computeLoopWidth();
+  window.addEventListener('resize', recalc);
+  window.addEventListener('load', recalc);
+  track.querySelectorAll('img').forEach(function (img) {
+    img.addEventListener('load', recalc);
   });
 
-  loopWidth = computeLoopWidth();
+  recalc();
   requestAnimationFrame(tick);
 })();
 
-/**
- * Etech - main.js
- * Vanilla JS tanpa dependency. Dimuat sekali di layout utama:
- * <script src="/js/main.js" defer></script>
- */
-
 document.addEventListener('DOMContentLoaded', function () {
 
-  // Scroll reveal: elemen ber-class "reveal" fade-in-up saat masuk viewport.
-  // Delay bertahap lewat class reveal-delay-1..4.
   var revealEls = document.querySelectorAll('.reveal');
 
   if ('IntersectionObserver' in window && revealEls.length) {
@@ -168,25 +118,21 @@ document.addEventListener('DOMContentLoaded', function () {
       revealObserver.observe(el);
     });
   } else {
-    // Browser tanpa IntersectionObserver: langsung tampilkan
     revealEls.forEach(function (el) {
       el.classList.add('is-visible');
     });
   }
 
-  // Auto-terapkan "reveal" ke kartu umum agar tidak perlu menandai manual di tiap EJS.
-  // Tambah selector baru di sini jika ada komponen kartu baru.
   var autoRevealSelectors = [
     '.service-card', '.reason-card', '.value-card', '.team-card',
     '.cat-card', '.portfolio-card', '.product-simple', '.service-item',
     '.cert-item', '.info-feature', '.stage-block', '.stage-service',
     '.warranty-item', '.proyek-card',
-    '.reason-item', '.tipe-point', '.customer-tile', '.partner-tile'
+    '.reason-item', '.tipe-point'
   ];
   document.querySelectorAll(autoRevealSelectors.join(',')).forEach(function (el, i) {
     if (!el.classList.contains('reveal')) {
       el.classList.add('reveal');
-      // Delay bergilir 0-0.24s berdasarkan urutan elemen
       el.style.transitionDelay = (Math.min(i % 4, 3) * 0.08) + 's';
       if ('IntersectionObserver' in window) {
         var observerAuto = new IntersectionObserver(function (entries, observer) {
@@ -204,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Navbar: tambah class "scrolled" setelah scroll > 10px
   var navbar = document.querySelector('nav.main');
   if (navbar) {
     var handleNavScroll = function () {
@@ -218,8 +163,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', handleNavScroll, { passive: true });
   }
 
-  // Menu mobile. Butuh markup: .navbar-toggle dan <ul> di dalam nav.main
-  // (sesuaikan selector jika struktur navbar.ejs berubah)
   var navToggle = document.querySelector('.navbar-toggle');
   var navList = document.querySelector('nav.main ul');
 
@@ -233,17 +176,15 @@ document.addEventListener('DOMContentLoaded', function () {
       );
     });
 
-    // Tutup menu otomatis saat link ditekan
     navList.querySelectorAll('a.navlink').forEach(function (link) {
       link.addEventListener('click', function () {
         navList.classList.remove('is-open');
         navToggle.classList.remove('is-active');
+        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
 
-  // Parallax hero: aktif pada elemen ber-attribute data-parallax
-  // yang berisi gambar di .hero-media atau .page-hero-media
   var parallaxEls = document.querySelectorAll('[data-parallax]');
   if (parallaxEls.length) {
     var updateParallax = function () {
@@ -251,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var media = el.querySelector('.hero-media img, .page-hero-media img');
         if (!media) return;
         var rect = el.getBoundingClientRect();
-        // Hanya hitung saat hero terlihat di viewport
         if (rect.bottom > 0 && rect.top < window.innerHeight) {
           var offset = rect.top * 0.15;
           media.style.transform = 'translateY(' + offset + 'px) scale(1.08)';
@@ -265,8 +205,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-
-// Halaman Solusi Bisnis: tiap fungsi mengecek elemennya dulu, jadi aman di halaman lain
 (function () {
   'use strict';
 
@@ -274,14 +212,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function onMediaChange(mq, handler) {
     if (mq.addEventListener) mq.addEventListener('change', handler);
-    else if (mq.addListener) mq.addListener(handler); // Safari lama
+    else if (mq.addListener) mq.addListener(handler);
   }
 
-  // Proses Layanan: highlight kartu aktif (.is-dark)
-  // - Lebar (>=901px): pindah otomatis tiap 3,2 detik saat section terlihat;
-  //   berhenti saat hover/fokus, dan kartu yang di-hover/fokus langsung aktif.
-  // - Mobile (<901px): kartu yang melewati tengah layar menjadi aktif.
-  // - prefers-reduced-motion: tanpa perpindahan otomatis.
   function initProsesHighlight() {
     var wrap = document.querySelector('.proses-steps');
     if (!wrap) return;
@@ -341,7 +274,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (document.hidden) stop(); else start();
     });
 
-    // rootMargin -45% membuat area deteksi hanya garis tengah layar
     function bindCenter() {
       if (centerObserver || !('IntersectionObserver' in window)) return;
       centerObserver = new IntersectionObserver(function (entries) {
@@ -363,8 +295,6 @@ document.addEventListener('DOMContentLoaded', function () {
     applyMode();
   }
 
-  // FAQ: fallback accordion "satu terbuka" untuk browser yang belum
-  // mendukung atribut name="faq" pada <details>
   function initFaq() {
     var items = document.querySelectorAll('.faq-list details.faq-item');
     if (!items.length) return;
@@ -380,8 +310,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Reveal fade-in-up via Web Animations API (tidak bentrok dengan
-  // transform/transition hover di CSS). Tanpa dukungan, elemen tetap tampil.
   function initReveal() {
     if (reduceMotion || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
@@ -397,7 +325,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var pending = [];
 
     targets.forEach(function (el) {
-      // Elemen yang sudah terlihat saat load tidak dianimasikan
       if (el.getBoundingClientRect().top < vh * 0.9) return;
       el.style.opacity = '0';
       pending.push(el);
@@ -435,9 +362,6 @@ document.addEventListener('DOMContentLoaded', function () {
   else init();
 })();
 
-// Home: hero slider (.hh[data-hero-slider])
-// Aktif hanya jika ada >1 slide. Ganti otomatis tiap 6 detik; berhenti saat
-// hover, tab tidak aktif, atau prefers-reduced-motion. Indikator (.hh-dash) bisa diklik.
 (function () {
   'use strict';
   var root = document.querySelector('[data-hero-slider]');
@@ -464,7 +388,6 @@ document.addEventListener('DOMContentLoaded', function () {
     timer = setInterval(function () { show(current + 1); }, INTERVAL);
   }
 
-  // stop() + start() mereset timer setelah klik manual
   dashes.forEach(function (dash, i) {
     dash.addEventListener('click', function () { show(i); stop(); start(); });
   });
@@ -476,22 +399,6 @@ document.addEventListener('DOMContentLoaded', function () {
   start();
 })();
 
-/* =========================================================================
-   Home: fitur interaktif tambahan (opsional, aktif hanya jika markup-nya ada)
-
-   1) Rotating headline:
-      <span class="accent rotate-text" data-rotate-text
-            data-rotate-words="Andal,Efisien,Terpercaya" data-rotate-interval="2600"></span>
-   2) Counter angka (naik dari 0 saat masuk viewport):
-      <span data-counter data-counter-to="500" data-counter-suffix="+">0</span>
-   3) Marquee logo mitra:
-      <div class="partner-marquee" data-marquee data-marquee-speed="0.5">
-        <div data-marquee-track> ...<div class="partner-tile">... </div></div>
-      </div>
-   4) Tombol magnetic:  <a class="btn btn-primary" data-magnetic href="...">
-   5) Glow hero mengikuti kursor:
-      <div class="hh" data-hero-glow><div class="hero-glow" aria-hidden="true"></div>...</div>
-   ========================================================================= */
 (function () {
   'use strict';
 
@@ -500,7 +407,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var isTouchHome = window.matchMedia &&
     window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
-  // Rotating headline; dengan reduced-motion hanya menampilkan kata pertama
   function initRotateText() {
     var els = document.querySelectorAll('[data-rotate-text]');
     if (!els.length) return;
@@ -522,12 +428,11 @@ document.addEventListener('DOMContentLoaded', function () {
           i = (i + 1) % words.length;
           el.textContent = words[i];
           el.classList.remove('is-swapping');
-        }, 260); // harus sama dengan durasi transition .rotate-text di style.css
+        }, 260);
       }, interval);
     });
   }
 
-  // Counter animasi (easeOutCubic); mendukung desimal dan suffix
   function initCounters() {
     var counters = document.querySelectorAll('[data-counter]');
     if (!counters.length) return;
@@ -570,8 +475,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Marquee logo mitra: pola sama dengan carousel Portofolio Proyek
-  // (item digandakan sekali, loop mulus, berhenti saat hover/sentuh)
   function initMarquee() {
     var wraps = document.querySelectorAll('[data-marquee]');
     if (!wraps.length) return;
@@ -602,6 +505,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var last = originalItems[originalItems.length - 1];
         return (last.offsetLeft + last.offsetWidth + trackGap()) - first.offsetLeft;
       }
+      function recalc() {
+        loopWidth = computeLoopWidth();
+      }
       function tick() {
         if (!isPaused && !reduceMotionHome && loopWidth > 0) {
           wrap.scrollLeft += speed;
@@ -619,20 +525,23 @@ document.addEventListener('DOMContentLoaded', function () {
       document.addEventListener('visibilitychange', function () {
         isPaused = document.hidden;
       });
-      window.addEventListener('resize', function () { loopWidth = computeLoopWidth(); });
+      window.addEventListener('resize', recalc);
+      window.addEventListener('load', recalc);
+      track.querySelectorAll('img').forEach(function (img) {
+        img.addEventListener('load', recalc);
+      });
 
-      loopWidth = computeLoopWidth();
+      recalc();
       requestAnimationFrame(tick);
     });
   }
 
-  // Tombol magnetic; nonaktif di layar sentuh dan reduced-motion
   function initMagneticButtons() {
     if (reduceMotionHome || isTouchHome) return;
     var buttons = document.querySelectorAll('[data-magnetic]');
     if (!buttons.length) return;
 
-    var STRENGTH = 0.25; // 0-1, makin besar makin ditarik ke kursor
+    var STRENGTH = 0.25;
 
     buttons.forEach(function (btn) {
       btn.addEventListener('mousemove', function (e) {
@@ -647,7 +556,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Glow hero: mengisi CSS variable --glow-x / --glow-y (gradient diatur di style.css)
   function initHeroGlow() {
     if (isTouchHome) return;
     var heroes = document.querySelectorAll('[data-hero-glow]');
@@ -676,14 +584,12 @@ document.addEventListener('DOMContentLoaded', function () {
   else initHome();
 })();
 
-// Site-wide: efek ripple tombol dan scroll progress bar
 (function () {
   'use strict';
 
   var reduceMotionSite = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Ripple pada .btn / .hh-btn. Butuh overflow:hidden pada tombol (lihat style.css)
   function initRipple() {
     if (reduceMotionSite || !Element.prototype.animate) return;
     var buttons = document.querySelectorAll('.btn, .hh-btn');
@@ -692,7 +598,6 @@ document.addEventListener('DOMContentLoaded', function () {
     buttons.forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         var rect = btn.getBoundingClientRect();
-        // Diameter 1.8x sisi terpanjang agar menutupi tombol dari titik klik mana pun
         var size = Math.max(rect.width, rect.height) * 1.8;
         var x = (e.clientX !== undefined ? e.clientX - rect.left : rect.width / 2) - size / 2;
         var y = (e.clientY !== undefined ? e.clientY - rect.top : rect.height / 2) - size / 2;
@@ -717,7 +622,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Bar progres scroll di atas halaman (class .scroll-progress, styling di style.css)
   function initScrollProgress() {
     var bar = document.createElement('div');
     bar.className = 'scroll-progress';

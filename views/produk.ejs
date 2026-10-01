@@ -24,7 +24,7 @@
     }) %>
     <div class="brand-grid" id="brandGrid">
       <% brands.forEach(function(brand, idx) { %>
-        <button type="button" class="brand-tile <%= idx === 0 ? 'active' : '' %>" data-brand="<%= brand.key %>" aria-pressed="<%= idx === 0 ? 'true' : 'false' %>">
+        <a class="brand-tile" href="/products/<%= brand.key %>" aria-label="Lihat genset <%= brand.name %>">
           <div class="brand-tile-body">
             <span class="bname"><%= brand.name %></span>
             <span class="btag"><%= brand.tagline %></span>
@@ -44,53 +44,14 @@
           <div class="brand-tile-media">
             <img src="<%= brand.image %>" alt="<%= brand.name %>">
           </div>
-        </button>
+        </a>
       <% }); %>
     </div>
  <div class="brand-divider" id="brandDivider" aria-hidden="true"></div>
   </div>
 </section>
 
-<section id="spotlight" style="background:#fff;">
-  <div class="spotlight-focus-glow" id="spotlightGlow" aria-hidden="true"></div>
-  <div class="wrap">
-    <% brands.forEach(function(brand, idx) { %>
-      <div class="spot-panel <%= idx === 0 ? 'active' : '' %>" id="spot-<%= brand.key %>">
-        <div class="spotlight-grid">
-          <div class="spotlight-media">
-            <img src="<%= brand.image %>" alt="<%= brand.name %>">
-          </div>
-          <div class="spotlight-content">
-            <div class="eyebrow"><span class="rule"></span><%= brand.name %></div>
-            <h2><%= brand.heroTitle %></h2>
-            <p><%= brand.heroDesc %></p>
-            <div class="spec-rows">
-              <div class="spec-row">
-                <div class="spec-label">Tersedia dalam</div>
-                <div class="spec-value"><%= brand.availableList.join(', ') %></div>
-              </div>
-              <div class="spec-row">
-                <div class="spec-label">Cocok untuk</div>
-                <div class="spec-value"><%= brand.suitableList.join(', ') %></div>
-              </div>
-            </div>
-            <div class="why-panel">
-              <div class="why-panel-title">Kenapa <%= brand.name %> cocok untuk Anda</div>
-              <ul class="why-panel-grid">
-                <% brand.whyList.forEach(function(point) { %><li><%= point %></li><% }); %>
-              </ul>
-              <p class="why-panel-text"><%= brand.calloutText %></p>
-              <a href="https://wa.me/6285196095854" target="_blank" rel="noopener" class="btn btn-panel-dark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                Konsultasikan <%= brand.name %> via WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% }); %>
-  </div>
-</section>
+<section class="brand-bridge" aria-hidden="true"></section>
 
 <section class="stage-hero">
   <img src="/images/produk/stage-hero-bg.jpg" alt="" class="stage-hero-bg">
@@ -104,14 +65,13 @@
       <div class="stage-block stage-services-block">
         <div class="stage-block-head">
           <div class="eyebrow eyebrow-dark"><span class="rule"></span>TAHAP PERTAMA</div>
-          <h3>Layanan Kami</h3>
+          <h3>Penyediaan, Instalasi & Commissioning</h3>
         </div>
+        <p class="stage-intro">Mulai dari memilih unit yang sesuai kebutuhan, sampai genset terpasang dan teruji, siap beroperasi.</p>
         <div class="stage-services">
           <% const stageServices = [
             { icon: '1.png', title: 'Penyediaan Genset', desc: 'Genset baru & second dengan berbagai kapasitas, dari 10 kVA hingga 2000 kVA.' },
-            { icon: '2.png', title: 'Instalasi & Commissioning', desc: 'Pemasangan profesional dan pengujian menyeluruh untuk performa maksimal.' },
-            { icon: '3.png', title: 'Service & Perawatan', desc: 'Tim teknisi berpengalaman untuk maintenance berkala dan perbaikan cepat.' },
-            { icon: '4.png', title: 'Suku Cadang Original', desc: 'Ketersediaan suku cadang asli dari brand terpercaya, dengan jaminan kualitas.' }
+            { icon: '2.png', title: 'Instalasi & Commissioning', desc: 'Pemasangan profesional dan pengujian menyeluruh untuk performa maksimal.' }
           ]; %>
           <% stageServices.forEach(function(s) { %>
             <div class="stage-service">
@@ -130,16 +90,16 @@
       <div class="stage-block stage-warranty">
         <div class="stage-block-head">
           <div class="eyebrow eyebrow-dark"><span class="rule"></span>TAHAP KEDUA</div>
-          <h3>Garansi Resmi & Kualitas Terjamin</h3>
+          <h3>Service, Perawatan, Garansi & Suku Cadang</h3>
         </div>
-        <p>Kami memberikan garansi resmi untuk setiap unit genset yang kami jual, dilengkapi dengan layanan purna jual yang cepat dan responsif. Kepuasan Anda adalah prioritas kami.</p>
+        <p>Setelah genset beroperasi, kami tetap mendampingi lewat garansi resmi dan layanan purna jual yang cepat dan responsif. Kepuasan Anda adalah prioritas kami.</p>
 
         <div class="warranty-grid">
           <% const warrantyList = [
+            { icon: '3.png', title: 'SERVICE & PERAWATAN', desc: 'Maintenance berkala dan perbaikan cepat' },
             { icon: '5.png', title: 'GARANSI RESMI', desc: 'Sesuai ketentuan pabrikan' },
-            { icon: '6.png', title: 'RESPON CEPAT', desc: 'Layanan teknis 24/7' },
-            { icon: '7.png', title: 'TEKNISI BERPENGALAMAN', desc: 'Tersertifikasi & profesional' },
-            { icon: '8.png', title: 'SERTIFIKAT & STANDAR', desc: 'ISO, SNI, dan standar internasional' }
+            { icon: '4.png', title: 'SUKU CADANG ORIGINAL', desc: 'Asli dari brand terpercaya' },
+            { icon: '6.png', title: 'RESPON CEPAT', desc: 'Layanan teknis 24/7' }
           ]; %>
           <% warrantyList.forEach(function(w) { %>
             <div class="warranty-item">
@@ -210,10 +170,6 @@
 
     <div class="proyek-track" id="proyekTrack">
       <%
-        // Data referensi proyek terpasang. Setiap item merepresentasikan satu
-        // studi kasus nyata (nama proyek, klien/pemilik proyek, sektor,
-        // lokasi, dan kapasitas unit). Struktur ini dibuat agar mudah nanti
-        // dipindah ke API/CMS tanpa mengubah markup di bawah.
         const refList = [
           {
             label: 'Gedung Laboratorium Seni – ISI',
@@ -286,8 +242,6 @@
     <div class="proyek-progress"><div class="proyek-progress-bar" id="proyekProgressBar"></div></div>
   </div>
 </section>
-
-<script src="/js/pages/produk-brand-pointer.js" defer></script>
 
 <%- include('partials/cta-band', {
   variant: 'catalog',

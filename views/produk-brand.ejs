@@ -1,0 +1,116 @@
+<%- include('partials/breadcrumb', {
+  items: [
+    { label: 'Etech', url: '/' },
+    { label: 'Katalog Produk', url: '/products' },
+    { label: brand.name }
+  ]
+}) %>
+
+<section class="page-hero-dark">
+  <div class="wrap page-hero-dark-body">
+    <span class="brand-hero-kicker">BRAND <%= brand.name %></span>
+    <h1>Genset <%= brand.name %>: <%= brand.heroTitle %></h1>
+    <p><%= brand.heroDesc %></p>
+    <div class="brand-hero-ctas">
+      <a href="https://wa.me/6285196095854" target="_blank" rel="noopener" class="btn btn-primary">Konsultasi Gratis →</a>
+      <a href="/products" class="btn btn-outline-light">Semua Brand</a>
+    </div>
+  </div>
+</section>
+
+<section id="detail-brand">
+  <div class="wrap">
+    <div class="spotlight-grid">
+      <div class="spotlight-media">
+        <img src="<%= brand.image %>" alt="Genset <%= brand.name %>">
+      </div>
+      <div class="spotlight-content">
+        <h2><%= brand.tagline %></h2>
+        <div class="spec-rows">
+          <div class="spec-row">
+            <div class="spec-label">Tersedia dalam</div>
+            <ul class="spec-list">
+              <% brand.availableList.forEach(function(item) { %><li><%= item %></li><% }); %>
+            </ul>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Cocok untuk</div>
+            <ul class="spec-list">
+              <% brand.suitableList.forEach(function(item) { %><li><%= item %></li><% }); %>
+            </ul>
+          </div>
+        </div>
+        <div class="why-panel">
+          <div class="why-panel-title">Kenapa <%= brand.name %> cocok untuk Anda</div>
+          <ul class="why-panel-grid">
+            <% brand.whyList.forEach(function(point) { %><li><%= point %></li><% }); %>
+          </ul>
+          <p class="why-panel-text"><%= brand.calloutText %></p>
+          <a href="https://wa.me/6285196095854" target="_blank" rel="noopener" class="btn btn-panel-dark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            Konsultasikan <%= brand.name %> via WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% if (brand.projects && brand.projects.length) { %>
+<section id="proyek-brand" class="berjalan-section brand-projects">
+  <div class="wrap">
+    <div class="berjalan-head">
+      <h2>Proyek genset <span class="accent"><%= brand.name %></span></h2>
+      <p>Beberapa unit <%= brand.name %> yang sudah kami pasang untuk klien.</p>
+    </div>
+    <div class="berjalan-grid">
+      <% brand.projects.forEach(function(project) { %>
+        <article class="berjalan-card">
+          <div class="berjalan-card-media">
+            <img src="<%= project.image %>" alt="<%= project.name %>" width="640" height="400" loading="lazy">
+          </div>
+          <div class="berjalan-card-body">
+            <h3><%= project.name %></h3>
+            <p class="berjalan-desc"><%= project.desc %></p>
+            <ul class="berjalan-specs">
+              <% project.specs.forEach(function(spec) { %>
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span><%= spec %></span>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<section id="brand-lain" class="brand-other">
+  <div class="wrap">
+    <%- include('partials/section-heading', {
+      heading: 'Lihat brand genset lainnya',
+      text: 'Bandingkan dengan lini brand lain yang kami sediakan.',
+      center: true
+    }) %>
+    <div class="brand-links">
+      <% otherBrands.forEach(function(other) { %>
+        <a class="brand-link" href="/products/<%= other.key %>">
+          <span class="brand-link-name"><%= other.name %></span>
+          <span class="brand-link-tag"><%= other.tagline %></span>
+          <span class="brand-link-more">Lihat Detail <span aria-hidden="true">→</span></span>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/cta-band', {
+  variant: 'catalog',
+  heading: 'Konsultasikan kebutuhan genset ' + brand.name + ' Anda',
+  text: 'Tim kami siap membantu menentukan unit yang paling sesuai dengan skala dan karakteristik operasional Anda.',
+  ctaLabel: 'Konsultasikan via WhatsApp →',
+  ctaUrl: 'https://wa.me/6285196095854'
+}) %>
