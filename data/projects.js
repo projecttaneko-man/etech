@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 const path = require('path');
 
@@ -13,6 +12,7 @@ function cariFoto(nomor) {
   return '/images/proyek/' + nomor + '.webp';
 }
 
+// P(judul, ringkasan, model, tipe, engine, alternator, controller)
 function P(title, summary, model, type, engine, alternator, controller) {
   return { title, summary, model, type, engine, alternator, controller };
 }
@@ -75,6 +75,7 @@ const list = [
   P('PT. Mandiri Citra Cipta', '1 Unit Perkins 100 kVA', 'TNK100P', 'Silent Type', 'Perkins 1106A-70TG1', 'Stamford UCI 274E', 'DeepSea DSE6020')
 ];
 
+// kVA tidak cocok dengan kode model, cek dulu sebelum dipindah ke list
 const perluDicek = [
   P('PT. Pipit Mutiara Jaya', '1 Unit Perkins 20 kVA', 'TNK15P', 'Silent Type', 'Perkins 403A-15G2', 'Stamford S0L1-P1', 'DeepSea DSE4520'),
   P('PT. Sinar Adi Putratama', '1 Unit Cummins 200 kVA', 'TNK250C', 'Open Type', 'Cummins 6LTAA8.3G2', 'Stamford UCI 274H', 'DeepSea DSE7320'),
@@ -83,9 +84,21 @@ const perluDicek = [
   P('PT. MHE Demag', '5 Units Cummins 80 kVA', 'BG60C', 'Open Type', 'Cummins 4BT A3.9G2', 'Stamford BOGEN BG 224E', 'ComAp IntelliLite 9')
 ];
 
+function pecah(title) {
+  const bagian = title.split(/,?\s+by\.?\s+/i);
+  return { name: bagian[0], via: bagian[1] || '' };
+}
+
+function urai(summary) {
+  const m = summary.match(/^(\d+)\s+Units?\s+(\S+)\s+([\d.]+)\s+kVA(.*)$/i);
+  if (!m) return { units: '', brand: '', kva: '', extras: [] };
+  const extras = m[4].split(/\s+[+–-]\s+/).map(function (x) { return x.trim(); }).filter(Boolean);
+  return { units: m[1], brand: m[2], kva: m[3], extras: extras };
+}
+
 const projects = list.map(function (p, i) {
   const nomor = String(i + 1).padStart(2, '0');
-  const item = Object.assign({}, p);
+  const item = Object.assign({}, p, pecah(p.title), urai(p.summary));
   Object.defineProperty(item, 'image', {
     enumerable: true,
     get: function () { return p.image || cariFoto(nomor); }

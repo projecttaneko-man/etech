@@ -21,8 +21,15 @@
   }
   .pg-media { aspect-ratio: 4 / 3; overflow: hidden; margin: 8px -8px 24px; background: #eee; }
   .pg-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .pg-desc { margin: 0 0 16px; line-height: 1.8; color: #222; }
-  .pg-specs { margin: 0; padding-left: 28px; list-style: circle; line-height: 1.9; color: #222; }
+  .pg-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .pg-tag { font-size: .78rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #f4ede6; color: #6f4a2e; }
+  .pg-tag-main { background: #b4561a; color: #fff; }
+  .pg-title { font-size: 1.15rem; line-height: 1.4; color: #2a1f1a; margin: 0 0 4px; }
+  .pg-via { margin: 0 0 14px; font-size: .9rem; color: #6f625a; }
+  .pg-spec { display: grid; gap: 8px; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid #eee5dc; }
+  .pg-spec > div { display: grid; grid-template-columns: 112px 1fr; gap: 10px; font-size: .92rem; }
+  .pg-spec dt { color: #8a7a6e; }
+  .pg-spec dd { margin: 0; color: #2a1f1a; font-weight: 500; overflow-wrap: anywhere; }
 
   .pg-info { text-align: center; color: #6f625a; font-size: .95rem; margin: 0 0 28px; }
 
@@ -58,15 +65,21 @@
       <% projects.forEach(function (p) { %>
         <article class="pg-card">
           <div class="pg-media">
-            <img src="<%= p.image %>" alt="<%= p.title %>" width="400" height="300" loading="lazy">
+            <img src="<%= p.image %>" alt="<%= p.name %>" width="400" height="300" loading="lazy">
           </div>
-          <p class="pg-desc">Project <%= p.title %>. <strong><%= p.summary %>.</strong></p>
-          <ul class="pg-specs">
-            <li>Model: <%= p.model %> – <%= p.type %></li>
-            <li>Engine: <%= p.engine %></li>
-            <li>Alternator: <%= p.alternator %></li>
-            <li>Controller: <%= p.controller %></li>
-          </ul>
+          <div class="pg-tags">
+            <% if (p.units) { %><span class="pg-tag pg-tag-main"><%= p.units %> × <%= p.kva %> kVA</span><% } %>
+            <span class="pg-tag"><%= p.type %></span>
+            <% p.extras.forEach(function (x) { %><span class="pg-tag"><%= x %></span><% }); %>
+          </div>
+          <h3 class="pg-title"><%= p.name %></h3>
+          <% if (p.via) { %><p class="pg-via">Melalui <%= p.via %></p><% } %>
+          <dl class="pg-spec">
+            <div><dt>Model</dt><dd><%= p.model %></dd></div>
+            <div><dt>Mesin</dt><dd><%= p.engine %></dd></div>
+            <div><dt>Alternator</dt><dd><%= p.alternator %></dd></div>
+            <div><dt>Panel kontrol</dt><dd><%= p.controller %></dd></div>
+          </dl>
         </article>
       <% }); %>
     </div>
