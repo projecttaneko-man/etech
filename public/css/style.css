@@ -2070,7 +2070,6 @@ main:has(.wawasan-page){ background:#f8fafc; }
   .brand-links{ grid-template-columns:1fr; }
 }
 
-/* ===== Halaman /proyek — tempel di akhir public/css/style.css ===== */
 .pj-head { padding: 56px 0 24px; }
 .pj-head h1 { max-width: 18ch; margin: 0 0 12px; }
 .pj-lead { max-width: 60ch; margin: 0 0 28px; opacity: .8; }
@@ -2107,7 +2106,6 @@ main:has(.wawasan-page){ background:#f8fafc; }
   .pj-grid { grid-template-columns: 1fr; }
 }
 
-/* ===== Carousel proyek di halaman home: rapikan teks kartu ===== */
 .proyek-home .proyek-body {
   padding: 20px 22px 24px;
 }
@@ -2119,7 +2117,7 @@ main:has(.wawasan-page){ background:#f8fafc; }
   letter-spacing: 0;
   margin: 0 0 12px;
   color: #2a1f1a;
-  min-height: 2.8em; /* tinggi 2 baris, supaya semua kartu sejajar */
+  min-height: 2.8em; 
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
