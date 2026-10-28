@@ -90,17 +90,52 @@
       center: true
     }) %>
 
-    <% const fasilitasList = [
-      { image: '/images/workshop.jpeg', alt: 'Workshop Etech tempat persiapan dan perawatan genset', caption: 'Workshop Etech' },
-      { image: '/images/sr_land.jpeg', alt: 'Kantor Etech distributor genset', caption: 'Kantor Etech' }
+    <% const lokasiList = [
+      {
+        title: 'Head Office',
+        address: 'Marquee – Alamanda Tower 28th Floor Suite D, Jl. TB Simatupang Kav. 23-24, Cilandak – Jakarta Barat, Jakarta 12430 – INDONESIA',
+        phone: '(+62-21) 7590 5072 / 73',
+        tel: '+622175905072',
+        query: 'Alamanda Tower, Jl. TB Simatupang Kav. 23-24, Cilandak, Jakarta 12430'
+      },
+      {
+        title: 'Workshop & Branch Office',
+        address: 'Jl. Raya Kaligawe KM. 7 No. 311, Semarang 50117, Jawa Tengah – INDONESIA',
+        phone: '(+62-24) 7645 0765',
+        tel: '+622476450765',
+        query: 'Jl. Raya Kaligawe KM. 7 No. 311, Semarang 50117'
+      },
+      {
+        title: 'Branch Office',
+        address: 'Gedung Graha Bukopin 12th Floor, Jl. Panglima Sudirman No. 10 – 18, Surabaya 60271, Jawa Timur – Indonesia',
+        phone: '(+62-31) 2899 7907',
+        tel: '+623128997907',
+        query: 'Graha Bukopin, Jl. Panglima Sudirman No. 10-18, Surabaya 60271'
+      }
     ]; %>
 
-    <div class="fasilitas-grid">
-      <% fasilitasList.forEach(function(item) { %>
-        <figure class="fasilitas-item">
-          <img src="<%= item.image %>" alt="<%= item.alt %>" loading="lazy">
-          <figcaption><%= item.caption %></figcaption>
-        </figure>
+    <div class="lokasi-grid notranslate" translate="no">
+      <% lokasiList.forEach(function(loc) { %>
+        <article class="lokasi-card">
+          <div class="lokasi-map">
+            <iframe
+              src="https://www.google.com/maps?q=<%= encodeURIComponent(loc.query) %>&output=embed"
+              title="Peta lokasi <%= loc.title %>"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="lokasi-body">
+            <h3><%= loc.title %></h3>
+            <p><%= loc.address %></p>
+            <p class="lokasi-phone">
+              <a href="tel:<%= loc.tel %>"><%= loc.phone %></a>
+            </p>
+            <a class="lokasi-link"
+               href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(loc.query) %>"
+               target="_blank" rel="noopener">Buka di Google Maps →</a>
+          </div>
+        </article>
       <% }); %>
     </div>
   </div>
@@ -130,46 +165,6 @@
           <h3><%= v.title %></h3>
           <p><%= v.desc %></p>
         </div>
-        </div>
-      <% }); %>
-    </div>
-  </div>
-</section>
-
-<section id="tim" class="team-section bg-dots">
-  <div class="wrap">
-    <div class="section-head center team-section-head">
-      <div class="eyebrow"><span class="rule"></span>TIM KAMI</div>
-      <h2>Orang-orang di balik Etech</h2>
-      <svg class="heading-squiggle" viewBox="0 0 160 12" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 8c20-10 40 10 60 0s40-10 60 0" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
-      <p>Sekelompok profesional berpengalaman yang memastikan setiap kebutuhan kelistrikan Anda ditangani dengan tepat, dari perencanaan hingga purna jual.</p>
-    </div>
-
-    <div class="team-grid">
-      <% const timList = [
-        { name: 'XX', role: 'Direktur Utama', image: '/images/tentang/tim-1.jpg' },
-        { name: 'XX', role: 'Manajer Operasional', image: '/images/tentang/tim-2.jpg' },
-        { name: 'XX', role: 'Kepala Teknisi', image: '/images/tentang/tim-3.jpg' },
-        { name: 'XX', role: 'Manajer Pemasaran', image: '/images/tentang/tim-4.jpg' }
-      ]; %>
-      <% timList.forEach(function(member) { %>
-        <div class="team-card">
-          <div class="team-photo">
-            <img
-              src="<%= member.image %>"
-              alt="Foto tim Etech"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="team-photo-fallback">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
-              </svg>
-            </div>
-          </div>
-          <div class="tname"><%= member.name %></div>
-          <div class="trole"><%= member.role %></div>
         </div>
       <% }); %>
     </div>

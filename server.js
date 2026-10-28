@@ -35,6 +35,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Terjadi kesalahan pada server');
 });
+app.locals.clients = require('./data/clients');
 
 async function optimasiFotoProyek() {
   let sharp;
@@ -76,3 +77,4 @@ app.listen(PORT, () => {
   console.log(`ETECH website running at http://localhost:${PORT}`);
   optimasiFotoProyek();
 });
+

@@ -10,7 +10,7 @@ const products = [
     slug: 'genset-standby',
     name: 'Genset Standby',
     category: 'Standby Generator',
-    image: '/images/generator.webp',
+    image: '/images/generator.jpg',
   },
   {
     slug: 'genset-portable',
@@ -22,7 +22,7 @@ const products = [
     slug: 'diesel-generator-set',
     name: 'Diesel Generator Set',
     category: 'Commercial Generator',
-    image: '/images/dieselgeneratorset.jpg',
+    image: '/images/dieselgeneratorset.webp',
   },
   {
     slug: 'genset-silent-type',
@@ -34,7 +34,7 @@ const products = [
     slug: 'genset-open-type',
     name: 'Genset Open Type',
     category: 'Open Type Generator',
-    image: '/images/opentype.jpg',
+    image: '/images/opentype.webp',
   },
   {
     slug: 'genset-bensin',
@@ -46,7 +46,7 @@ const products = [
     slug: 'panel-ats-amf',
     name: 'Panel ATS/AMF',
     category: 'Switching & Control Panel',
-    image: '/images/panel.webp',
+    image: '/images/panel.png',
   },
 ];
 

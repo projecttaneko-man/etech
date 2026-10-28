@@ -1,5 +1,11 @@
 <% const cats = (locals.footer && locals.footer.categories) || []; %>
 <% const latest = (locals.footer && locals.footer.latest_articles) || []; %>
+<% const qs = function (p) {
+     const q = new URLSearchParams({ page: p });
+     if (activeCategory) q.set('category', activeCategory);
+     if (search) q.set('search', search);
+     return '/wawasan?' + q.toString();
+   }; %>
 
 <link rel="stylesheet" href="/css/wawasan.css">
 
@@ -26,13 +32,17 @@
       <section class="wawasan-main">
 
         <% if (!articles.length) { %>
-          <p class="wawasan-empty">Belum ada artikel.</p>
+          <p class="wawasan-empty">
+            <%= locals.cmsError
+                  ? 'Artikel sedang tidak dapat dimuat. Silakan coba beberapa saat lagi.'
+                  : (search ? 'Tidak ada artikel untuk "' + search + '".' : 'Belum ada artikel.') %>
+          </p>
         <% } %>
 
         <div class="wawasan-grid">
           <% articles.forEach(function (a) { %>
             <a class="wawasan-card" href="/wawasan/<%= a.slug %>">
-              <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt="<%= a.title %>"><% } %>
+              <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt="<%= a.title %>" loading="lazy" decoding="async" width="600" height="400"><% } %>
               <div class="wawasan-card-body">
                 <% if (a.category) { %><span class="wawasan-cat"><%= a.category.name %></span><% } %>
                 <h3><%= a.title %></h3>
@@ -45,8 +55,7 @@
         <% if (meta.last_page > 1) { %>
           <nav class="wawasan-pager">
             <% for (let p = 1; p <= meta.last_page; p++) { %>
-              <a class="<%= p === meta.current_page ? 'active' : '' %>"
-                 href="/wawasan?page=<%= p %><%= activeCategory ? '&category=' + activeCategory : '' %><%= search ? '&search=' + encodeURIComponent(search) : '' %>"><%= p %></a>
+              <a class="<%= p === meta.current_page ? 'active' : '' %>" href="<%= qs(p) %>"><%= p %></a>
             <% } %>
           </nav>
         <% } %>
@@ -62,7 +71,7 @@
             <ul class="wside-cats">
               <% cats.forEach(function (c) { %>
                 <li data-item>
-                  <a class="<%= activeCategory === c.slug ? 'active' : '' %>" href="/wawasan?category=<%= c.slug %>">
+                  <a class="<%= activeCategory === c.slug ? 'active' : '' %>" href="/wawasan?category=<%= encodeURIComponent(c.slug) %>">
                     <span><%= c.name %></span>
                     <% if (c.articles_count > 0) { %><em class="wside-count"><%= c.articles_count %></em><% } %>
                   </a>
@@ -83,7 +92,7 @@
             <div class="wside-related">
               <% latest.forEach(function (a) { %>
                 <a class="wside-rel-item" data-item href="/wawasan/<%= a.slug %>">
-                  <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt=""><% } else { %><div class="wside-rel-ph"></div><% } %>
+                  <% if (a.thumbnail) { %><img src="<%= a.thumbnail %>" alt="" loading="lazy" decoding="async" width="80" height="60"><% } else { %><div class="wside-rel-ph"></div><% } %>
                   <p><%= a.title %></p>
                 </a>
               <% }) %>
